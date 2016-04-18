@@ -36,17 +36,17 @@ function setupDb() {
 
     db('links').push({
         description: 'The very library we are working with now',
-        link: 'https://github.com/facebook/react',
+        url: 'https://github.com/facebook/react',
         topicId: 1,
     });
     db('links').push({
         description: 'An app to manage your finances',
-        link: 'https://22seven.com',
+        url: 'https://22seven.com',
         topicId: 2,
     });
     db('links').push({
         description: 'Go find some news yourself!',
-        link: 'https://google.com',
+        url: 'https://google.com',
         topicId: 3,
     });
 }
@@ -57,6 +57,18 @@ setupDb();
 function setupServer() {
     // set up server
     const app = express()
+
+    app.use((req, res, next) => {
+        // Website you wish to allow to connect
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        // Request methods you wish to allow
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+        // Request headers you wish to allow
+        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+        // Pass to next layer of middleware
+        next();
+    });
 
     app.get('/topics', (req, res) => {
         res.send(db('topics'));
