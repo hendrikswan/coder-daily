@@ -1,11 +1,14 @@
-module.exports = function generateData() {
+export default function generateData() {
     return {
         channels: [{
             id: 1,
-            name: 'cycle/core',
+            name: 'libraries',
         }, {
             id: 2,
-            name: 'cycle/dom',
+            name: 'news',
+        }, {
+            id: 3,
+            name: 'apps',
         }],
         messages: [{
             id: 1,
@@ -17,4 +20,4 @@ module.exports = function generateData() {
             channelId: 2,
         }],
     };
-};
+}
