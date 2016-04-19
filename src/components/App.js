@@ -10,14 +10,19 @@ class App extends React.Component {
         this.state = {
             topics: [],
             links: [],
+            selectedTopic: {},
         };
 
         fetch('http://localhost:3000/topics')
         .then(response => response.json())
         .then(topics => {
-            this.setState({ topics });
+            const selectedTopic = topics[0];
+            this.setState({
+                topics,
+                selectedTopic,
+            });
 
-            fetch(`http://localhost:3000/topics/${topics[0].id}/links`)
+            fetch(`http://localhost:3000/topics/${selectedTopic.id}/links`)
             .then(linkResponse => linkResponse.json())
             .then(links => this.setState({ links }));
         });
@@ -31,6 +36,7 @@ class App extends React.Component {
                 />
 
                 <LinkList
+                    topic={this.state.selectedTopic}
                     links={this.state.links}
                 />
             </div>

@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
-import MenuItem from 'material-ui/lib/menus/menu-item';
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
 import Card from 'material-ui/lib/card/card';
+import CardHeader from 'material-ui/lib/card/card-header';
+import capitalize from 'capitalize';
+import Divider from 'material-ui/lib/divider';
 
 class LinkList extends React.Component {
 
@@ -14,18 +16,26 @@ class LinkList extends React.Component {
                 <ListItem
                     key={link.url}
                     primaryText={link.url}
+                    secondaryText={link.description}
                 />
             );
         });
 
         return (
-            <Card style={{
-                marginTop: 15,
-            }}>
-                <List>
-                    {linkNodes}
-                </List>
-            </Card>
+            <div>
+                <Card style={{
+                    marginTop: 15,
+                }}>
+                    <CardHeader
+                      title={capitalize(this.props.topic.name || '')}
+                      subtitle={this.props.topic.description}
+                    />
+                    <Divider />
+                    <List>
+                        {linkNodes}
+                    </List>
+                </Card>
+            </div>
         );
     }
 }
@@ -38,6 +48,10 @@ LinkList.propTypes = {
             // id: React.PropTypes.number.isRequired,
         })
     ).isRequired,
+    topic: PropTypes.shape({
+        name: React.PropTypes.string.isRequired,
+        description: React.PropTypes.string.isRequired,
+    }),
 };
 
 export default LinkList;
