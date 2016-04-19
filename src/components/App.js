@@ -1,6 +1,7 @@
 import React from 'react';
 import Navigation from './Navigation';
 
+
 class App extends React.Component {
     constructor() {
         super();
@@ -22,6 +23,7 @@ class App extends React.Component {
                 <Navigation
                     topics={this.state.topics}
                 />
+
                 hello there...
             </div>
         );

@@ -1,8 +1,8 @@
 {
-  "name": "cyclejs-webpack-babel",
+  "name": "udemy-react-2016",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server"
@@ -10,22 +10,29 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel-core": "^5.7.4",
-    "babel-loader": "^5.3.2",
-    "lodash": "^4.6.1",
-    "webpack": "^1.12.14",
-    "webpack-dev-server": "^1.14.1",
-    "eslint": "2.2.0",
+    "babel-eslint": "^6.0.2",
+    "eslint": "^2.8.0",
     "eslint-config-airbnb": "6.0.2",
-    "eslint-plugin-react": "4.1.0"
+    "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "autoprefixer": "^6.3.6",
+    "babel-core": "^6.7.6",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "eslint-plugin-react": "^5.0.1",
     "exports-loader": "^0.6.3",
     "express": "^4.13.4",
+    "extract-text-webpack-plugin": "^1.0.1",
     "imports-loader": "^0.6.5",
+    "lodash": "^4.6.1",
     "lowdb": "^0.12.5",
+    "material-ui": "^0.14.4",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
+    "react-tap-event-plugin": "^1.0.0",
     "whatwg-fetch": "^0.11.0"
   }
 }
