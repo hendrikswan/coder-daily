@@ -17,46 +17,48 @@ class LinkList extends React.Component {
     render() {
         const linkNodes = this.props.links.map(link => {
             return (
-                <Card
-                    key={link.url}
-                    style={{
-                        display: 'flex',
-                        marginTop: 15,
-                    }}
-                >
+                <Card>
                     <div
+                        key={link.url}
                         style={{
                             display: 'flex',
-                            flexDirection: 'column',
+                            marginTop: 15,
                         }}
                     >
-                        <UpArrow
-                            style={{
-                                width: 50,
-                                height: 50,
-                            }}
-                        />
-
                         <div
                             style={{
-                                fontSize: 20,
-                                textAlign: 'center',
+                                display: 'flex',
+                                flexDirection: 'column',
                             }}
                         >
-                        50
-                        </div>
+                            <UpArrow
+                                style={{
+                                    width: 50,
+                                    height: 50,
+                                }}
+                            />
 
-                        <DownArrow
-                            style={{
-                                width: 50,
-                                height: 50,
-                            }}
+                            <div
+                                style={{
+                                    fontSize: 20,
+                                    textAlign: 'center',
+                                }}
+                            >
+                            50
+                            </div>
+
+                            <DownArrow
+                                style={{
+                                    width: 50,
+                                    height: 50,
+                                }}
+                            />
+                        </div>
+                        <ListItem
+                            primaryText={link.url}
+                            secondaryText={link.description}
                         />
                     </div>
-                    <ListItem
-                        primaryText={link.url}
-                        secondaryText={link.description}
-                    />
                 </Card>
             );
         });
