@@ -1,34 +1,23 @@
 import React from 'react';
 import Navigation from './Navigation';
 import LinkList from './LinkList';
+import store from '../store';
+import { fetchLinks } from '../actions';
 
 
 class App extends React.Component {
     constructor() {
         super();
 
-        this.state = {
-            topics: [],
-            links: [],
-            selectedTopic: {
-                name: '',
-                description: '',
-            },
-        };
+        this.state = store.getState();
 
-        fetch('http://localhost:3000/topics')
-        .then(response => response.json())
-        .then(topics => {
-            const selectedTopic = topics[0];
-            this.setState({
-                topics,
-                selectedTopic,
-            });
-
-            fetch(`http://localhost:3000/topics/${selectedTopic.id}/links`)
-            .then(linkResponse => linkResponse.json())
-            .then(links => this.setState({ links }));
+        store.subscribe(() => {
+            this.setState(store.getState()); // eslint-disable-line react/no-set-state
         });
+    }
+
+    componentDidMount() {
+        store.dispatch(fetchLinks());
     }
 
     render() {
