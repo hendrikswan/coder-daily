@@ -17,9 +17,10 @@ class LinkList extends React.Component {
     render() {
         const linkNodes = this.props.links.map(link => {
             return (
-                <Card>
+                <Card
+                    key={link.url}
+                >
                     <div
-                        key={link.url}
                         style={{
                             display: 'flex',
                             marginTop: 15,

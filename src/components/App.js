@@ -10,7 +10,10 @@ class App extends React.Component {
         this.state = {
             topics: [],
             links: [],
-            selectedTopic: {},
+            selectedTopic: {
+                name: '',
+                description: '',
+            },
         };
 
         fetch('http://localhost:3000/topics')
