@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
     // Source maps support (or 'inline-source-map' also works)
-    devtool: 'source-map',
+    devtool: 'eval',
     entry: {
         main: [
             'webpack-dev-server/client?http://localhost:8080',
@@ -29,12 +29,12 @@ module.exports = {
         loaders: [
             {
                 test: /\.js?$/,
-                loader: 'babel-loader',
+                loaders: ['react-hot', 'babel'],
                 include: path.join(__dirname, 'src'),
                 exclude: /node_modules/,
-                query: {
-                    presets: ['es2015', 'react', 'stage-0'],
-                },
+                // query: {
+                //     presets: ['es2015', 'react', 'stage-0'],
+                // },
             },
         ],
     },

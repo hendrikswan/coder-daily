@@ -76,7 +76,7 @@ function setupServer() {
 
     app.get('/topics/:id/links', (req, res) => {
         res.send(db('links').filter((l) => {
-            return l.topicId === req.params.id;
+            return l.topicId === parseInt(req.params.id);
         }));
     });
 

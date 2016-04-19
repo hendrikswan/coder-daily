@@ -13,6 +13,7 @@
     "babel-eslint": "^6.0.2",
     "eslint": "^2.8.0",
     "eslint-config-airbnb": "6.0.2",
+    "react-hot-loader": "^1.3.0",
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
@@ -33,6 +34,7 @@
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-tap-event-plugin": "^1.0.0",
+    "webpack-dev-server": "^1.14.1",
     "whatwg-fetch": "^0.11.0"
   }
 }

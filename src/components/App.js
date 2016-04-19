@@ -1,5 +1,6 @@
 import React from 'react';
 import Navigation from './Navigation';
+import LinkList from './LinkList';
 
 
 class App extends React.Component {
@@ -8,12 +9,17 @@ class App extends React.Component {
 
         this.state = {
             topics: [],
+            links: [],
         };
 
         fetch('http://localhost:3000/topics')
         .then(response => response.json())
         .then(topics => {
             this.setState({ topics });
+
+            fetch(`http://localhost:3000/topics/${topics[0].id}/links`)
+            .then(linkResponse => linkResponse.json())
+            .then(links => this.setState({ links }));
         });
     }
 
@@ -24,7 +30,9 @@ class App extends React.Component {
                     topics={this.state.topics}
                 />
 
-                hello there...
+                <LinkList
+                    links={this.state.links}
+                />
             </div>
         );
     }
