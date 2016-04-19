@@ -43,6 +43,20 @@ export function startAdd() {
     };
 }
 
+export const REQUEST_ADD = 'REQUEST_ADD';
+export function requestAdd() {
+    return {
+        type: REQUEST_ADD,
+    };
+}
+
+export const RECEIVE_ADD = 'RECEIVE_ADD';
+export function receiveAdd() {
+    return {
+        type: RECEIVE_ADD,
+    };
+}
+
 export function fetchLinks() {
     return (dispatch, getState) => {
         dispatch(requestLinks());
@@ -51,6 +65,30 @@ export function fetchLinks() {
         .then(linkResponse => linkResponse.json())
         .then(links => {
             dispatch(receiveLinks(links));
+        });
+    };
+}
+
+export function add({ url, description }) {
+    return (dispatch, getState) => {
+        const selectedTopic = getState().selectedTopic;
+        fetch(`http://localhost:3000/topics/${selectedTopic.id}/links`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                url,
+                description,
+                topicId: selectedTopic.id,
+            }),
+        })
+        .then(postResponse => {
+            if (postResponse.status === 200) {
+                dispatch(fetchLinks());
+                dispatch(receiveAdd());
+            }
         });
     };
 }

@@ -19,6 +19,9 @@ class LinkList extends React.Component {
             return (
                 <Card
                     key={link.url}
+                    style={{
+                        marginBottom: 10,
+                    }}
                 >
                     <div
                         style={{
@@ -66,38 +69,38 @@ class LinkList extends React.Component {
 
         return (
             <div>
-                <Card style={{
-                    marginTop: 15,
-                }}>
-                    <div
+                <div
+                    style={{
+                        // paddingTop: 10,
+                        paddingLeft: 15,
+                        fontFamily: 'Roboto',
+                    }}
+                >
+                    <h1
                         style={{
-                            // paddingTop: 10,
-                            paddingLeft: 15,
+                            color: '#222',
+                            fontWeight: '100',
+                        }}
+                    >{capitalize(this.props.topic.name || '')}</h1>
+
+                    <h3
+                        style={{
+                            color: '#666',
+                            marginTop: -20,
+                            fontWeight: '100',
                         }}
                     >
-                        <h1
-                            style={{
-                                color: '#222',
-                            }}
-                        >{capitalize(this.props.topic.name || '')}</h1>
+                        {this.props.topic.description}
+                    </h3>
 
-                        <h3
-                            style={{
-                                color: '#666',
-                                marginTop: -20,
-                            }}
-                        >
-                            {this.props.topic.description}
-                        </h3>
+                    <FloatingActionButton
+                        style={{ position: 'fixed', right: 30, top: 110 }}
+                        onMouseUp={this.props.onAdd}
+                    >
+                        <ContentAdd />
+                    </FloatingActionButton>
+                </div>
 
-                        <FloatingActionButton
-                            style={{ position: 'fixed', right: 30, top: 110 }}
-                            onMouseUp={this.props.onAdd}
-                        >
-                            <ContentAdd />
-                        </FloatingActionButton>
-                    </div>
-                </Card>
 
 
                 <List

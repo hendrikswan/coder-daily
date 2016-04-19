@@ -5,11 +5,19 @@ import Card from 'material-ui/lib/card/card';
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
 
-const widthStyle = {
+const inputStyle = {
     width: '100%',
+    marginTop: 10,
 };
 
 class Form extends React.Component {
+    onAdd = () => {
+        this.props.onAdd({
+            url: this._url.getValue(),
+            description: this._description.getValue(),
+        });
+    }
+
     render() {
         return (
             <Card
@@ -28,18 +36,28 @@ class Form extends React.Component {
                     <div>
                         <TextField
                             hintText="URL"
-                            style={widthStyle}
+                            ref={(i) => this._url = i}
+                            style={inputStyle}
                         /><br/>
 
                         <TextField
                             hintText="Description"
-                            style={widthStyle}
+                            ref={(i) => this._description = i}
+                            style={inputStyle}
                         /><br/>
 
                         <RaisedButton
                             label="Add"
                             primary={true}
-                            style={widthStyle}
+                            style={inputStyle}
+                            onMouseUp={this.onAdd}
+                        />
+
+                        <RaisedButton
+                            label="Cancel"
+                            secondary={true}
+                            style={inputStyle}
+                            onMouseUp={this.props.onCancel}
                         />
                     </div>
                 </div>

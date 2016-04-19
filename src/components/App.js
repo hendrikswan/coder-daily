@@ -3,7 +3,7 @@ import Navigation from './Navigation';
 import LinkList from './LinkList';
 import Form from './Form';
 import store from '../store';
-import { init, startAdd } from '../actions';
+import { init, startAdd, add } from '../actions';
 
 
 class App extends React.Component {
@@ -25,6 +25,18 @@ class App extends React.Component {
         store.dispatch(startAdd());
     }
 
+    onAddConfirm = ({ url, description }) => {
+        console.log(url, description);
+        store.dispatch(add({
+            url,
+            description,
+        }));
+    }
+
+    onAddCancel = ({ url, description }) => {
+        console.log('cancel');
+    }
+
     render() {
         let view = (
             <LinkList
@@ -35,7 +47,10 @@ class App extends React.Component {
         );
 
         if (this.state.adding) {
-            view = <Form />;
+            view = (<Form
+                onAdd={this.onAddConfirm}
+                onCancel={this.onAddCancel}
+            />);
         }
 
         return (

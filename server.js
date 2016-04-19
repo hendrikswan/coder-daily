@@ -4,6 +4,7 @@ const config = require('./webpack.config');
 const express = require('express');
 const low = require('lowdb');
 const db = low();
+const bodyParser = require('body-parser');
 
 new WebPackDevServer(webpack(config), {
     publicPath: config.output.publicPath,
@@ -70,6 +71,8 @@ function setupServer() {
         next();
     });
 
+    app.use(bodyParser.json());
+
     app.get('/topics', (req, res) => {
         res.send(db('topics'));
     });
@@ -81,9 +84,11 @@ function setupServer() {
     });
 
     app.post('/topics/:id/links', (req, res) => {
+        console.log(req.body);
         db('links')
-            .push(req.body)
-            .then(post => res.send(post));
+            .push(req.body);
+
+        res.send(req.body);
     });
 
     app.listen(3000, () => {
