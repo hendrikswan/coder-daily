@@ -7,6 +7,8 @@ import capitalize from 'capitalize';
 import Divider from 'material-ui/lib/divider';
 import UpArrow from 'material-ui/lib/svg-icons/hardware/keyboard-arrow-up';
 import DownArrow from 'material-ui/lib/svg-icons/hardware/keyboard-arrow-down';
+import FloatingActionButton from 'material-ui/lib/floating-action-button';
+import ContentAdd from 'material-ui/lib/svg-icons/content/add';
 
 class LinkList extends React.Component {
 
@@ -15,10 +17,11 @@ class LinkList extends React.Component {
     render() {
         const linkNodes = this.props.links.map(link => {
             return (
-                <div
+                <Card
                     key={link.url}
                     style={{
                         display: 'flex',
+                        marginTop: 15,
                     }}
                 >
                     <div
@@ -54,7 +57,7 @@ class LinkList extends React.Component {
                         primaryText={link.url}
                         secondaryText={link.description}
                     />
-                </div>
+                </Card>
             );
         });
 
@@ -65,8 +68,7 @@ class LinkList extends React.Component {
                 }}>
                     <div
                         style={{
-                            padingTop: 10,
-                            paddingBottom: 10,
+                            // paddingTop: 10,
                             paddingLeft: 15,
                         }}
                     >
@@ -74,17 +76,33 @@ class LinkList extends React.Component {
                             style={{
                                 color: '#222',
                             }}
-                        >{this.props.topic.name}</h1>
+                        >{capitalize(this.props.topic.name || '')}</h1>
 
-                        <h3>
+                        <h3
+                            style={{
+                                color: '#666',
+                                marginTop: -20,
+                            }}
+                        >
                             {this.props.topic.description}
                         </h3>
+
+                        <FloatingActionButton
+                            style={{ position: 'fixed', right: 30, top: 110 }}
+                        >
+                            <ContentAdd />
+                        </FloatingActionButton>
                     </div>
-                    <Divider />
-                    <List>
-                        {linkNodes}
-                    </List>
                 </Card>
+
+
+                <List
+                    style={{
+                        marginTop: 5,
+                    }}
+                >
+                    {linkNodes}
+                </List>
             </div>
         );
     }
