@@ -63,10 +63,23 @@ class LinkList extends React.Component {
                 <Card style={{
                     marginTop: 15,
                 }}>
-                    <CardHeader
-                      title={capitalize(this.props.topic.name || '')}
-                      subtitle={this.props.topic.description}
-                    />
+                    <div
+                        style={{
+                            padingTop: 10,
+                            paddingBottom: 10,
+                            paddingLeft: 15,
+                        }}
+                    >
+                        <h1
+                            style={{
+                                color: '#222',
+                            }}
+                        >{this.props.topic.name}</h1>
+
+                        <h3>
+                            {this.props.topic.description}
+                        </h3>
+                    </div>
                     <Divider />
                     <List>
                         {linkNodes}
