@@ -1,7 +1,11 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import { RECEIVE_LINKS, REQUEST_LINKS } from './actions';
+import {
+    RECEIVE_LINKS,
+    REQUEST_LINKS,
+    RECEIVE_TOPICS,
+} from './actions';
 
 const loggerMiddleware = createLogger();
 
@@ -21,12 +25,16 @@ function store(state, action) {
     case RECEIVE_LINKS:
         return Object.assign({}, state, {
             links: action.links,
-            selectedTopic: action.selectedTopic,
             loadingLinks: false,
         });
     case REQUEST_LINKS:
         return Object.assign({}, state, {
             loadingLinks: true,
+        });
+    case RECEIVE_TOPICS:
+        return Object.assign({}, state, {
+            selectedTopic: action.topics[0],
+            topics: action.topics,
         });
     // case 'ADD_TODO':
     //     const allTodos = state.allTodos.concat([{

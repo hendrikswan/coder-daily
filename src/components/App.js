@@ -2,7 +2,7 @@ import React from 'react';
 import Navigation from './Navigation';
 import LinkList from './LinkList';
 import store from '../store';
-import { fetchLinks } from '../actions';
+import { init } from '../actions';
 
 
 class App extends React.Component {
@@ -17,7 +17,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        store.dispatch(fetchLinks());
+        store.dispatch(init());
     }
 
     render() {

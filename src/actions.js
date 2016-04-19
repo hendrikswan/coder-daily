@@ -6,27 +6,64 @@ function requestLinks() {
 }
 
 export const RECEIVE_LINKS = 'RECEIVE_LINKS';
-function receiveLinks(links, selectedTopic) {
+function receiveLinks(links) {
     return {
         type: RECEIVE_LINKS,
         links,
-        selectedTopic,
+    };
+}
+
+export const SELECT_TOPIC = 'SELECT_TOPIC';
+function selectTopic(topic) {
+    return {
+        type: SELECT_TOPIC,
+        topic,
+    };
+}
+
+export const REQUEST_TOPICS = 'REQUEST_TOPICS';
+function requestTopics() {
+    return {
+        type: REQUEST_TOPICS,
+    };
+}
+
+export const RECEIVE_TOPICS = 'RECEIVE_TOPICS';
+function receiveTopics(topics) {
+    return {
+        type: RECEIVE_TOPICS,
+        topics,
     };
 }
 
 export function fetchLinks() {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         dispatch(requestLinks());
+        const selectedTopic = getState().selectedTopic;
+        fetch(`http://localhost:3000/topics/${selectedTopic.id}/links`)
+        .then(linkResponse => linkResponse.json())
+        .then(links => {
+            dispatch(receiveLinks(links));
+        });
+    };
+}
+
+export function fetchTopics() {
+    return (dispatch) => {
+        dispatch(requestTopics());
 
         fetch('http://localhost:3000/topics')
         .then(response => response.json())
         .then(topics => {
-            const selectedTopic = topics[0];
-            fetch(`http://localhost:3000/topics/${selectedTopic.id}/links`)
-            .then(linkResponse => linkResponse.json())
-            .then(links => {
-                dispatch(receiveLinks(links, selectedTopic));
-            });
+            dispatch(receiveTopics(topics));
+            dispatch(fetchLinks());
         });
+    };
+}
+
+
+export function init() {
+    return (dispatch) => {
+        dispatch(fetchTopics());
     };
 }
