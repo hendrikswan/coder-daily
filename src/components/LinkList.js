@@ -92,6 +92,7 @@ class LinkList extends React.Component {
 
                         <FloatingActionButton
                             style={{ position: 'fixed', right: 30, top: 110 }}
+                            onMouseUp={this.props.onAdd}
                         >
                             <ContentAdd />
                         </FloatingActionButton>

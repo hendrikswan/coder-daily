@@ -1,8 +1,9 @@
 import React from 'react';
 import Navigation from './Navigation';
 import LinkList from './LinkList';
+import Form from './Form';
 import store from '../store';
-import { init } from '../actions';
+import { init, startAdd } from '../actions';
 
 
 class App extends React.Component {
@@ -20,17 +21,30 @@ class App extends React.Component {
         store.dispatch(init());
     }
 
+    onAdd = () => {
+        store.dispatch(startAdd());
+    }
+
     render() {
+        let view = (
+            <LinkList
+                topic={this.state.selectedTopic}
+                links={this.state.links}
+                onAdd={this.onAdd}
+            />
+        );
+
+        if (this.state.adding) {
+            view = <Form />;
+        }
+
         return (
             <div>
                 <Navigation
                     topics={this.state.topics}
                 />
 
-                <LinkList
-                    topic={this.state.selectedTopic}
-                    links={this.state.links}
-                />
+                {view}
             </div>
         );
     }

@@ -36,6 +36,13 @@ function receiveTopics(topics) {
     };
 }
 
+export const START_ADD = 'START_ADD';
+export function startAdd() {
+    return {
+        type: START_ADD,
+    };
+}
+
 export function fetchLinks() {
     return (dispatch, getState) => {
         dispatch(requestLinks());
