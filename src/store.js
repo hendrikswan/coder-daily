@@ -22,6 +22,11 @@ function store(state, action) {
         return Object.assign({}, state, {
             links: action.links,
             selectedTopic: action.selectedTopic,
+            loadingLinks: false,
+        });
+    case REQUEST_LINKS:
+        return Object.assign({}, state, {
+            loadingLinks: true,
         });
     // case 'ADD_TODO':
     //     const allTodos = state.allTodos.concat([{
