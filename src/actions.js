@@ -73,10 +73,14 @@ export function selectTopic({ topic }) {
     };
 }
 
-// todo: good place for optimistic update
 export const VOTE_LINK = 'VOTE_LINK';
 export function voteLink({ link, increment }) {
     return (dispatch) => {
+        dispatch({
+            type: VOTE_LINK,
+            link,
+            increment,
+        });
         fetch(`http://localhost:3000/links/${link.id}/vote`, {
             method: 'POST',
             headers: {

@@ -109,9 +109,11 @@ function setupServer() {
     });
 
     app.post('/links/:id/vote', (req, res) => {
-        const link = db('links').find({ id: req.params.id });
-        link.voteCount += req.body.increment;
-        res.send(link);
+        setTimeout(() => {
+            const link = db('links').find({ id: req.params.id });
+            link.voteCount += req.body.increment;
+            res.send(link);
+        }, 1500);
     });
 
     app.listen(3000, () => {
