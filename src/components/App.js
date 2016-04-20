@@ -3,7 +3,7 @@ import Navigation from './Navigation';
 import LinkList from './LinkList';
 import Form from './Form';
 import store from '../store';
-import { init, startAdd, add, selectTopic } from '../actions';
+import { init, startAdd, add, selectTopic, voteLink } from '../actions';
 
 
 class App extends React.Component {
@@ -23,6 +23,14 @@ class App extends React.Component {
 
     onAdd = () => {
         store.dispatch(startAdd());
+    }
+
+    onVoteUp = ({ link }) => {
+        store.dispatch(voteLink({ link, increment: 1 }));
+    }
+
+    onVoteDown = ({ link }) => {
+        store.dispatch(voteLink({ link, increment: -1 }));
     }
 
     onTopicSelected = ({ topic }) => {
@@ -48,6 +56,8 @@ class App extends React.Component {
                 topic={this.state.selectedTopic}
                 links={this.state.links}
                 onAdd={this.onAdd}
+                onVoteUp={this.onVoteUp}
+                onVoteDown={this.onVoteDown}
             />
         );
 

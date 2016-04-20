@@ -33,12 +33,21 @@ class LinkList extends React.Component {
                                 flexDirection: 'column',
                             }}
                         >
-                            <UpArrow
-                                style={{
-                                    width: 50,
-                                    height: 50,
-                                }}
-                            />
+                            <a
+                                href="#"
+                                onClick={
+                                    (e) => {
+                                        e.preventDefault();
+                                        this.props.onVoteUp({ link });
+                                    }
+                            }>
+                                <UpArrow
+                                    style={{
+                                        width: 50,
+                                        height: 50,
+                                    }}
+                                />
+                            </a>
 
                             <div
                                 style={{
@@ -46,15 +55,24 @@ class LinkList extends React.Component {
                                     textAlign: 'center',
                                 }}
                             >
-                            50
+                            {link.voteCount}
                             </div>
 
-                            <DownArrow
-                                style={{
-                                    width: 50,
-                                    height: 50,
-                                }}
-                            />
+                            <a
+                                href="#"
+                                onClick={
+                                    (e) => {
+                                        e.preventDefault();
+                                        this.props.onVoteDown({ link });
+                                    }
+                            }>
+                                <DownArrow
+                                    style={{
+                                        width: 50,
+                                        height: 50,
+                                    }}
+                                />
+                            </a>
                         </div>
                         <ListItem
                             primaryText={link.url}
@@ -118,7 +136,8 @@ LinkList.propTypes = {
         React.PropTypes.shape({
             url: React.PropTypes.string.isRequired,
             description: React.PropTypes.string.isRequired,
-            // id: React.PropTypes.number.isRequired,
+            id: React.PropTypes.string.isRequired,
+            voteCount: React.PropTypes.number.isRequired,
         })
     ).isRequired,
     topic: PropTypes.shape({

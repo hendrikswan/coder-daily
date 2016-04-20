@@ -48,18 +48,21 @@ function setupDb() {
         url: 'https://github.com/facebook/react',
         topicId: topic1.id,
         id: uuid(),
+        voteCount: 0,
     });
     db('links').push({
         description: 'An app to manage your finances',
         url: 'https://22seven.com',
         topicId: topic2.id,
         id: uuid(),
+        voteCount: 0,
     });
     db('links').push({
         description: 'Go find some news yourself!',
         url: 'https://google.com',
         topicId: topic3.id,
         id: uuid(),
+        voteCount: 0,
     });
 }
 
@@ -97,10 +100,17 @@ function setupServer() {
     app.post('/topics/:id/links', (req, res) => {
         const link = Object.assign({}, req.body, {
             id: uuid(),
+            voteCount: 0,
         });
         db('links')
             .push(link);
 
+        res.send(link);
+    });
+
+    app.post('/links/:id/vote', (req, res) => {
+        const link = db('links').find({ id: req.params.id });
+        link.voteCount += req.body.increment;
         res.send(link);
     });
 

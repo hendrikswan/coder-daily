@@ -73,6 +73,28 @@ export function selectTopic({ topic }) {
     };
 }
 
+// todo: good place for optimistic update
+export const VOTE_LINK = 'VOTE_LINK';
+export function voteLink({ link, increment }) {
+    return (dispatch) => {
+        fetch(`http://localhost:3000/links/${link.id}/vote`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                increment,
+            }),
+        })
+        .then(postResponse => {
+            if (postResponse.status === 200) {
+                dispatch(fetchLinks());
+            }
+        });
+    };
+}
+
 
 export function add({ url, description }) {
     return (dispatch, getState) => {
