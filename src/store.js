@@ -54,7 +54,7 @@ function store(state, action) {
             links: [
                 ...state.links.slice(0, linkIndex),
                 Object.assign({}, state.links[linkIndex], {
-                    voteCount: state.links[linkIndex].voteCount + 1,
+                    voteCount: state.links[linkIndex].voteCount + action.increment,
                 }),
                 ...state.links.slice(linkIndex + 1)
             ],
