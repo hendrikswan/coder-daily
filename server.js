@@ -68,7 +68,7 @@ setupDb();
 
 function setupServer() {
     // set up server
-    const app = express()
+    const app = express();
 
     app.use((req, res, next) => {
         // Website you wish to allow to connect
