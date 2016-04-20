@@ -122,6 +122,7 @@ class LinkList extends React.Component {
                 <List
                     style={{
                         marginTop: 5,
+                        backgroundColor: 'transparent',
                     }}
                 >
                     {linkNodes}
