@@ -2,9 +2,7 @@ import React, { PropTypes } from 'react';
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
 import Card from 'material-ui/lib/card/card';
-import CardHeader from 'material-ui/lib/card/card-header';
 import capitalize from 'capitalize';
-import Divider from 'material-ui/lib/divider';
 import UpArrow from 'material-ui/lib/svg-icons/hardware/keyboard-arrow-up';
 import DownArrow from 'material-ui/lib/svg-icons/hardware/keyboard-arrow-down';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
@@ -18,7 +16,7 @@ class LinkList extends React.Component {
         const linkNodes = this.props.links.map(link => {
             return (
                 <Card
-                    key={link.url}
+                    key={link.id}
                     style={{
                         marginBottom: 10,
                     }}

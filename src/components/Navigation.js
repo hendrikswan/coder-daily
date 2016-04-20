@@ -56,7 +56,7 @@ Navigation.propTypes = {
         React.PropTypes.shape({
             name: React.PropTypes.string.isRequired,
             description: React.PropTypes.string.isRequired,
-            id: React.PropTypes.number.isRequired,
+            id: React.PropTypes.string.isRequired,
         })
     ).isRequired,
 };

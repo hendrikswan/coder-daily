@@ -5,6 +5,7 @@ const express = require('express');
 const low = require('lowdb');
 const db = low();
 const bodyParser = require('body-parser');
+const uuid = require('uuid');
 
 new WebPackDevServer(webpack(config), {
     publicPath: config.output.publicPath,
@@ -19,36 +20,46 @@ new WebPackDevServer(webpack(config), {
 });
 
 function setupDb() {
-    db('topics').push({
+    const topic1 = {
         name: 'libraries',
         description: 'links to useful open source libraries',
-        id: 1,
-    });
-    db('topics').push({
+        id: uuid(),
+    };
+
+    const topic2 = {
         name: 'apps',
         description: 'links to new and exciting apps',
-        id: 2,
-    });
-    db('topics').push({
+        id: uuid(),
+    };
+
+    const topic3 = {
         name: 'news',
         description: 'links to programming related news articles',
-        id: 3,
-    });
+        id: uuid(),
+    };
+
+
+    db('topics').push(topic1);
+    db('topics').push(topic2);
+    db('topics').push(topic3);
 
     db('links').push({
         description: 'The very library we are working with now',
         url: 'https://github.com/facebook/react',
-        topicId: 1,
+        topicId: topic1.id,
+        id: uuid(),
     });
     db('links').push({
         description: 'An app to manage your finances',
         url: 'https://22seven.com',
-        topicId: 2,
+        topicId: topic2.id,
+        id: uuid(),
     });
     db('links').push({
         description: 'Go find some news yourself!',
         url: 'https://google.com',
-        topicId: 3,
+        topicId: topic3.id,
+        id: uuid(),
     });
 }
 
@@ -79,16 +90,18 @@ function setupServer() {
 
     app.get('/topics/:id/links', (req, res) => {
         res.send(db('links').filter((l) => {
-            return l.topicId === parseInt(req.params.id);
+            return l.topicId === req.params.id;
         }));
     });
 
     app.post('/topics/:id/links', (req, res) => {
-        console.log(req.body);
+        const link = Object.assign({}, req.body, {
+            id: uuid(),
+        });
         db('links')
-            .push(req.body);
+            .push(link);
 
-        res.send(req.body);
+        res.send(link);
     });
 
     app.listen(3000, () => {
