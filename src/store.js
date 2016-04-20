@@ -6,7 +6,7 @@ import {
     REQUEST_LINKS,
     RECEIVE_TOPICS,
     START_ADD,
-    RECEIVE_ADD,
+    SELECT_TOPIC,
 } from './actions';
 
 const loggerMiddleware = createLogger();
@@ -42,6 +42,10 @@ function store(state, action) {
     case START_ADD:
         return Object.assign({}, state, {
             adding: true,
+        });
+    case SELECT_TOPIC:
+        return Object.assign({}, state, {
+            selectedTopic: action.topic,
         });
     default:
         return state;

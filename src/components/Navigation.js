@@ -17,13 +17,17 @@ class Navigation extends React.Component {
     toggle = () => this.setState({ open: !this.state.open });
 
     render() {
-        const topicNodes = this.props.topics.map(t => {
+        const topicNodes = this.props.topics.map(topic => {
             return (
                 <MenuItem
                     linkButton={true}
-                    key={t.id}
+                    key={topic.id}
+                    onTouchTap={() => {
+                        this.props.onTopicSelected({ topic });
+                        this.setState({ open: false });
+                    }}
                 >
-                    {t.name}
+                    {topic.name}
                 </MenuItem>
             );
         });

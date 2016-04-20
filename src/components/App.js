@@ -3,7 +3,7 @@ import Navigation from './Navigation';
 import LinkList from './LinkList';
 import Form from './Form';
 import store from '../store';
-import { init, startAdd, add } from '../actions';
+import { init, startAdd, add, selectTopic } from '../actions';
 
 
 class App extends React.Component {
@@ -23,6 +23,11 @@ class App extends React.Component {
 
     onAdd = () => {
         store.dispatch(startAdd());
+    }
+
+    onTopicSelected = ({ topic }) => {
+        console.log('topic selected: ', topic);
+        store.dispatch(selectTopic({ topic }));
     }
 
     onAddConfirm = ({ url, description }) => {
@@ -57,6 +62,7 @@ class App extends React.Component {
             <div>
                 <Navigation
                     topics={this.state.topics}
+                    onTopicSelected={this.onTopicSelected}
                 />
 
                 {view}

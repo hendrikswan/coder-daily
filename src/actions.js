@@ -13,14 +13,6 @@ function receiveLinks(links) {
     };
 }
 
-export const SELECT_TOPIC = 'SELECT_TOPIC';
-function selectTopic(topic) {
-    return {
-        type: SELECT_TOPIC,
-        topic,
-    };
-}
-
 export const REQUEST_TOPICS = 'REQUEST_TOPICS';
 function requestTopics() {
     return {
@@ -57,6 +49,7 @@ export function receiveAdd() {
     };
 }
 
+
 export function fetchLinks() {
     return (dispatch, getState) => {
         dispatch(requestLinks());
@@ -68,6 +61,18 @@ export function fetchLinks() {
         });
     };
 }
+
+export const SELECT_TOPIC = 'SELECT_TOPIC';
+export function selectTopic({ topic }) {
+    return (dispatch) => {
+        dispatch({
+            type: SELECT_TOPIC,
+            topic,
+        });
+        dispatch(fetchLinks());
+    };
+}
+
 
 export function add({ url, description }) {
     return (dispatch, getState) => {
