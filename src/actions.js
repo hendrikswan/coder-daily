@@ -1,3 +1,10 @@
+export const CANCEL_ADD = 'CANCEL_ADD';
+export function cancelAdd() {
+    return {
+        type: CANCEL_ADD,
+    };
+}
+
 export const REQUEST_LINKS = 'REQUEST_LINKS';
 function requestLinks() {
     return {
@@ -90,11 +97,6 @@ export function voteLink({ link, increment }) {
             body: JSON.stringify({
                 increment,
             }),
-        })
-        .then(postResponse => {
-            if (postResponse.status === 200) {
-                dispatch(fetchLinks());
-            }
         });
     };
 }

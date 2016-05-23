@@ -8,6 +8,7 @@ import {
     START_ADD,
     SELECT_TOPIC,
     VOTE_LINK,
+    CANCEL_ADD,
 } from './actions';
 
 const loggerMiddleware = createLogger();
@@ -47,6 +48,10 @@ function store(state, action) {
     case SELECT_TOPIC:
         return Object.assign({}, state, {
             selectedTopic: action.topic,
+        });
+    case CANCEL_ADD:
+        return Object.assign({}, state, {
+            adding: false,
         });
     case VOTE_LINK:
         const linkIndex = state.links.indexOf(action.link);

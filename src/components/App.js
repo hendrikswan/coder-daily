@@ -3,7 +3,7 @@ import Navigation from './Navigation';
 import LinkList from './LinkList';
 import Form from './Form';
 import store from '../store';
-import { init, startAdd, add, selectTopic, voteLink } from '../actions';
+import { init, startAdd, cancelAdd, add, selectTopic, voteLink } from '../actions';
 
 
 class App extends React.Component {
@@ -47,7 +47,7 @@ class App extends React.Component {
     }
 
     onAddCancel = ({ url, description }) => {
-        console.log('cancel');
+        store.dispatch(cancelAdd());
     }
 
     render() {
