@@ -100,6 +100,8 @@ export function voteLink({ link, increment }) {
 }
 
 
+// use rxjs, or most, or something like that to
+// handle wonkyness with long duration on server
 export function add({ url, description }) {
     return (dispatch, getState) => {
         const selectedTopic = getState().selectedTopic;
