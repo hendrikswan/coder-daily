@@ -1,9 +1,13 @@
 import React, { PropTypes } from 'react';
-// import List from 'material-ui/lib/lists/list';
-// import ListItem from 'material-ui/lib/lists/list-item';
 import Card from 'material-ui/lib/card/card';
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
+import store from '../store';
+import {
+    cancelAdd,
+    add,
+} from '../actions';
+
 
 const inputStyle = {
     width: '100%',
@@ -19,7 +23,6 @@ class Form extends React.Component {
             descriptionError: '',
         };
     }
-
 
     onAdd = () => {
         const url = this._url.getValue();
@@ -44,10 +47,17 @@ class Form extends React.Component {
             return;
         }
 
-        this.props.onAdd({
+        store.dispatch(add({
             url,
             description,
-        });
+        }));
+
+        this.context.router.goBack();
+    }
+
+    onCancel = ({ url, description }) => {
+        store.dispatch(cancelAdd());
+        this.context.router.goBack();
     }
 
     render() {
@@ -91,7 +101,7 @@ class Form extends React.Component {
                             label="Cancel"
                             secondary={true}
                             style={inputStyle}
-                            onMouseUp={this.props.onCancel}
+                            onMouseUp={this.onCancel}
                         />
                     </div>
                 </div>
@@ -101,18 +111,9 @@ class Form extends React.Component {
     }
 }
 
-// Form.propTypes = {
-//     links: PropTypes.arrayOf(
-//         React.PropTypes.shape({
-//             url: React.PropTypes.string.isRequired,
-//             description: React.PropTypes.string.isRequired,
-//             // id: React.PropTypes.number.isRequired,
-//         })
-//     ).isRequired,
-//     topic: PropTypes.shape({
-//         name: React.PropTypes.string.isRequired,
-//         description: React.PropTypes.string.isRequired,
-//     }),
-// };
+Form.contextTypes = {
+  router: React.PropTypes.object,
+};
+
 
 export default Form;

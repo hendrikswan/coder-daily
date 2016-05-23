@@ -1,14 +1,12 @@
 import React from 'react';
 import Navigation from './Navigation';
-import LinkList from './LinkList';
-import Form from './Form';
 import store from '../store';
-import { init, startAdd, cancelAdd, add, selectTopic, voteLink } from '../actions';
+import { init, selectTopic } from '../actions';
 
 
 class App extends React.Component {
-    constructor() {
-        super();
+    constructor(props, context) {
+        super(props, context);
 
         this.state = store.getState();
 
@@ -21,52 +19,11 @@ class App extends React.Component {
         store.dispatch(init());
     }
 
-    onAdd = () => {
-        store.dispatch(startAdd());
-    }
-
-    onVoteUp = ({ link }) => {
-        store.dispatch(voteLink({ link, increment: 1 }));
-    }
-
-    onVoteDown = ({ link }) => {
-        store.dispatch(voteLink({ link, increment: -1 }));
-    }
-
     onTopicSelected = ({ topic }) => {
-        console.log('topic selected: ', topic);
         store.dispatch(selectTopic({ topic }));
     }
 
-    onAddConfirm = ({ url, description }) => {
-        console.log(url, description);
-        store.dispatch(add({
-            url,
-            description,
-        }));
-    }
-
-    onAddCancel = ({ url, description }) => {
-        store.dispatch(cancelAdd());
-    }
-
     render() {
-        let view = (
-            <LinkList
-                topic={this.state.selectedTopic}
-                links={this.state.links}
-                onAdd={this.onAdd}
-                onVoteUp={this.onVoteUp}
-                onVoteDown={this.onVoteDown}
-            />
-        );
-
-        if (this.state.adding) {
-            view = (<Form
-                onAdd={this.onAddConfirm}
-                onCancel={this.onAddCancel}
-            />);
-        }
 
         return (
             <div>
@@ -75,7 +32,7 @@ class App extends React.Component {
                     onTopicSelected={this.onTopicSelected}
                 />
 
-                {view}
+                {this.props.children}
             </div>
         );
     }

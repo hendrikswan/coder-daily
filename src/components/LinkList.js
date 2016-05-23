@@ -7,13 +7,42 @@ import UpArrow from 'material-ui/lib/svg-icons/hardware/keyboard-arrow-up';
 import DownArrow from 'material-ui/lib/svg-icons/hardware/keyboard-arrow-down';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
 import ContentAdd from 'material-ui/lib/svg-icons/content/add';
+import store from '../store';
+import {
+    init,
+    startAdd,
+    cancelAdd,
+    add,
+    selectTopic,
+    voteLink,
+} from '../actions';
 
 class LinkList extends React.Component {
+    constructor(props, context) {
+        super(props, context);
 
-    // toggle = () => this.setState({ open: !this.state.open });
+        this.state = store.getState();
+
+        store.subscribe(() => {
+            this.setState(store.getState()); // eslint-disable-line react/no-set-state
+        });
+    }
+
+    onAdd = () => {
+        store.dispatch(startAdd());
+        this.context.router.push('/add');
+    }
+
+    onVoteUp = ({ link }) => {
+        store.dispatch(voteLink({ link, increment: 1 }));
+    }
+
+    onVoteDown = ({ link }) => {
+        store.dispatch(voteLink({ link, increment: -1 }));
+    }
 
     render() {
-        const linkNodes = this.props.links.map(link => {
+        const linkNodes = this.state.links.map(link => {
             return (
                 <Card
                     key={link.id}
@@ -38,7 +67,7 @@ class LinkList extends React.Component {
                                 onClick={
                                     (e) => {
                                         e.preventDefault();
-                                        this.props.onVoteUp({ link });
+                                        this.onVoteUp({ link });
                                     }
                             }>
                                 <UpArrow
@@ -63,7 +92,7 @@ class LinkList extends React.Component {
                                 onClick={
                                     (e) => {
                                         e.preventDefault();
-                                        this.props.onVoteDown({ link });
+                                        this.onVoteDown({ link });
                                     }
                             }>
                                 <DownArrow
@@ -97,7 +126,7 @@ class LinkList extends React.Component {
                             color: '#222',
                             fontWeight: '100',
                         }}
-                    >{capitalize(this.props.topic.name || '')}</h1>
+                    >{capitalize(this.state.selectedTopic.name || '')}</h1>
 
                     <h3
                         style={{
@@ -106,12 +135,12 @@ class LinkList extends React.Component {
                             fontWeight: '100',
                         }}
                     >
-                        {this.props.topic.description}
+                        {this.state.selectedTopic.description}
                     </h3>
 
                     <FloatingActionButton
                         style={{ position: 'fixed', right: 30, top: 110 }}
-                        onMouseUp={this.props.onAdd}
+                        onMouseUp={this.onAdd}
                     >
                         <ContentAdd />
                     </FloatingActionButton>
@@ -132,19 +161,9 @@ class LinkList extends React.Component {
     }
 }
 
-LinkList.propTypes = {
-    links: PropTypes.arrayOf(
-        React.PropTypes.shape({
-            url: React.PropTypes.string.isRequired,
-            description: React.PropTypes.string.isRequired,
-            id: React.PropTypes.string.isRequired,
-            voteCount: React.PropTypes.number.isRequired,
-        })
-    ).isRequired,
-    topic: PropTypes.shape({
-        name: React.PropTypes.string.isRequired,
-        description: React.PropTypes.string.isRequired,
-    }),
+LinkList.contextTypes = {
+  router: React.PropTypes.object,
 };
+
 
 export default LinkList;
