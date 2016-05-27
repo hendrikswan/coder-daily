@@ -1,8 +1,5 @@
 import React from 'react';
 import Navigation from './Navigation';
-import store from '../store';
-import { init, selectTopic } from '../actions';
-import { browserHistory } from 'react-router';
 import LinkList from './LinkList';
 import Form from './Form';
 

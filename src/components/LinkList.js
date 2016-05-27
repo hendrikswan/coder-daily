@@ -1,13 +1,10 @@
 import React, { PropTypes } from 'react';
 import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
-import Card from 'material-ui/lib/card/card';
 import capitalize from 'capitalize';
-import UpArrow from 'material-ui/lib/svg-icons/hardware/keyboard-arrow-up';
-import DownArrow from 'material-ui/lib/svg-icons/hardware/keyboard-arrow-down';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
 import ContentAdd from 'material-ui/lib/svg-icons/content/add';
 import store from '../store';
+import Link from './Link';
 import {
     init,
     startAdd,
@@ -42,75 +39,12 @@ class LinkList extends React.Component {
     }
 
     render() {
-        const linkNodes = this.state.links.map(link => {
-            return (
-                <Card
-                    key={link.id}
-                    style={{
-                        marginBottom: 10,
-                    }}
-                >
-                    <div
-                        style={{
-                            display: 'flex',
-                            marginTop: 15,
-                        }}
-                    >
-                        <div
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                            }}
-                        >
-                            <a
-                                href="#"
-                                onClick={
-                                    (e) => {
-                                        e.preventDefault();
-                                        this.onVoteUp({ link });
-                                    }
-                            }>
-                                <UpArrow
-                                    style={{
-                                        width: 50,
-                                        height: 50,
-                                    }}
-                                />
-                            </a>
-
-                            <div
-                                style={{
-                                    fontSize: 20,
-                                    textAlign: 'center',
-                                }}
-                            >
-                            {link.voteCount}
-                            </div>
-
-                            <a
-                                href="#"
-                                onClick={
-                                    (e) => {
-                                        e.preventDefault();
-                                        this.onVoteDown({ link });
-                                    }
-                            }>
-                                <DownArrow
-                                    style={{
-                                        width: 50,
-                                        height: 50,
-                                    }}
-                                />
-                            </a>
-                        </div>
-                        <ListItem
-                            primaryText={link.url}
-                            secondaryText={link.description}
-                        />
-                    </div>
-                </Card>
-            );
-        });
+        const linkNodes = this.state.links.map(link => (
+            <Link
+                key={link.id}
+                link={link}
+            />
+        ));
 
         return (
             <div>
