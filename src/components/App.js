@@ -2,6 +2,7 @@ import React from 'react';
 import Navigation from './Navigation';
 import store from '../store';
 import { init, selectTopic } from '../actions';
+import { browserHistory } from 'react-router';
 
 
 class App extends React.Component {
@@ -11,7 +12,7 @@ class App extends React.Component {
         this.state = store.getState();
 
         store.subscribe(() => {
-            this.setState(store.getState()); // eslint-disable-line react/no-set-state
+            this.setState(store.getState());
         });
     }
 
@@ -37,5 +38,9 @@ class App extends React.Component {
         );
     }
 }
+
+App.contextTypes = {
+  router: React.PropTypes.object,
+};
 
 export default App;

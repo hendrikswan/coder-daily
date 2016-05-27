@@ -5,9 +5,10 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 import List from 'material-ui/lib/lists/list';
 
 
+
 class Navigation extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
 
         this.state = {
             open: false,
@@ -22,6 +23,7 @@ class Navigation extends React.Component {
                 <MenuItem
                     linkButton={true}
                     key={topic.id}
+                    href={"#/topics/" + topic.id}
                     onTouchTap={() => {
                         this.props.onTopicSelected({ topic });
                         this.setState({ open: false });
