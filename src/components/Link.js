@@ -32,7 +32,7 @@ class Link extends React.Component {
                             onClick={
                                 (e) => {
                                     e.preventDefault();
-                                    this.onVoteUp({ link });
+                                    this.props.onVoteUp({ link });
                                 }
                         }>
                             <UpArrow
@@ -57,7 +57,7 @@ class Link extends React.Component {
                             onClick={
                                 (e) => {
                                     e.preventDefault();
-                                    this.onVoteDown({ link });
+                                    this.props.onVoteDown({ link });
                                 }
                         }>
                             <DownArrow
@@ -83,6 +83,8 @@ Link.propTypes = {
         url: React.PropTypes.string.isRequired,
         description: React.PropTypes.string.isRequired,
     }),
+    onVoteUp: React.PropTypes.func.isRequired,
+    onVoteDown: React.PropTypes.func.isRequired,
 };
 
 

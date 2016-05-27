@@ -43,6 +43,8 @@ class LinkList extends React.Component {
             <Link
                 key={link.id}
                 link={link}
+                onVoteDown={this.onVoteDown}
+                onVoteUp={this.onVoteUp}
             />
         ));
 
