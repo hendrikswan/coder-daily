@@ -8,29 +8,10 @@ import Form from './Form';
 
 
 class App extends React.Component {
-    constructor(props, context) {
-        super(props, context);
-
-        this.state = store.getState();
-
-        store.subscribe(() => {
-            this.setState(store.getState());
-        });
-    }
-
-    componentDidMount() {
-        store.dispatch(init());
-    }
-
-    onTopicSelected = ({ topic }) => {
-        store.dispatch(selectTopic({ topic }));
-    }
-
     render() {
-
         let component;
 
-        if (this.state.adding) {
+        if (this.props.adding) {
             component = (
                 <Form />
             );
@@ -44,18 +25,32 @@ class App extends React.Component {
         return (
             <div>
                 <Navigation
-                    topics={this.state.topics}
-                    onTopicSelected={this.onTopicSelected}
+                    topics={this.props.topics}
+                    onTopicSelected={this.props.onTopicSelected}
                 />
 
                 {component}
             </div>
         );
     }
+
+    componentDidMount() {
+        this.props.onLoad();
+    }
 }
 
-App.contextTypes = {
-  router: React.PropTypes.object,
+
+App.propTypes = {
+    topics: React.PropTypes.arrayOf(
+        React.PropTypes.shape({
+            name: React.PropTypes.string.isRequired,
+            description: React.PropTypes.string.isRequired,
+            id: React.PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    adding: React.PropTypes.bool.isRequired,
+    onTopicSelected: React.PropTypes.func.isRequired,
+    onLoad: React.PropTypes.func.isRequired,
 };
 
 export default App;

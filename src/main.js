@@ -2,7 +2,7 @@ import ReactDom from 'react-dom';
 import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
-import App from './components/App';
+import AppContainer from './containers/AppContainer';
 import LinkList from './components/LinkList';
 import Form from './components/Form';
 import store from './store';
@@ -26,7 +26,7 @@ ReactDom.render((
     //     </Route>
     // </Router>
 
-    <Provider>
-        <App />
+    <Provider store={store}>
+        <AppContainer />
     </Provider>
 ), document.getElementById('app'));
