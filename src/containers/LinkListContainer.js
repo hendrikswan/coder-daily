@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import LinkList from '../components/LinkList';
-import { voteLink } from '../actions';
+import { voteLink, startAdd } from '../actions';
 
 const mapStateToProps = (state) => {
     return {
@@ -16,6 +16,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onVoteDown: (link) => {
             dispatch(voteLink({ link, increment: -1 }));
+        },
+        onAdd: () => {
+            dispatch(startAdd());
         },
     };
 };
