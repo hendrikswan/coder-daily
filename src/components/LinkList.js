@@ -3,48 +3,47 @@ import List from 'material-ui/lib/lists/list';
 import capitalize from 'capitalize';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
 import ContentAdd from 'material-ui/lib/svg-icons/content/add';
-import store from '../store';
 import Link from './Link';
-import {
-    init,
-    startAdd,
-    cancelAdd,
-    add,
-    selectTopic,
-    voteLink,
-} from '../actions';
+// import {
+//     init,
+//     startAdd,
+//     cancelAdd,
+//     add,
+//     selectTopic,
+//     voteLink,
+// } from '../actions';
 
 class LinkList extends React.Component {
-    constructor(props, context) {
-        super(props, context);
+    // constructor(props, context) {
+    //     super(props, context);
+    //     //
+    //     // this.state = store.getState();
+    //     //
+    //     // store.subscribe(() => {
+    //     //     this.setState(store.getState()); // eslint-disable-line react/no-set-state
+    //     // });
+    // }
 
-        this.state = store.getState();
+    // onAdd = () => {
+    //     store.dispatch(startAdd());
+    //     this.context.router.push('/add');
+    // }
 
-        store.subscribe(() => {
-            this.setState(store.getState()); // eslint-disable-line react/no-set-state
-        });
-    }
-
-    onAdd = () => {
-        store.dispatch(startAdd());
-        this.context.router.push('/add');
-    }
-
-    onVoteUp = ({ link }) => {
-        store.dispatch(voteLink({ link, increment: 1 }));
-    }
-
-    onVoteDown = ({ link }) => {
-        store.dispatch(voteLink({ link, increment: -1 }));
-    }
+    // onVoteUp = ({ link }) => {
+    //     store.dispatch(voteLink({ link, increment: 1 }));
+    // }
+    //
+    // onVoteDown = ({ link }) => {
+    //     store.dispatch(voteLink({ link, increment: -1 }));
+    // }
 
     render() {
-        const linkNodes = this.state.links.map(link => (
+        const linkNodes = this.props.links.map(link => (
             <Link
                 key={link.id}
                 link={link}
-                onVoteDown={this.onVoteDown}
-                onVoteUp={this.onVoteUp}
+                onVoteDown={this.props.onVoteDown}
+                onVoteUp={this.props.onVoteUp}
             />
         ));
 
@@ -62,7 +61,7 @@ class LinkList extends React.Component {
                             color: '#222',
                             fontWeight: '100',
                         }}
-                    >{capitalize(this.state.selectedTopic.name || '')}</h1>
+                    >{capitalize(this.props.selectedTopic.name || '')}</h1>
 
                     <h3
                         style={{
@@ -71,7 +70,7 @@ class LinkList extends React.Component {
                             fontWeight: '100',
                         }}
                     >
-                        {this.state.selectedTopic.description}
+                        {this.props.selectedTopic.description}
                     </h3>
 
                     <FloatingActionButton
@@ -81,8 +80,6 @@ class LinkList extends React.Component {
                         <ContentAdd />
                     </FloatingActionButton>
                 </div>
-
-
 
                 <List
                     style={{
@@ -97,8 +94,15 @@ class LinkList extends React.Component {
     }
 }
 
-LinkList.contextTypes = {
-  router: React.PropTypes.object,
+LinkList.propTypes = {
+    links: React.PropTypes.array.isRequired,
+    onVoteUp: React.PropTypes.func.isRequired,
+    onVoteDown: React.PropTypes.func.isRequired,
+    selectedTopic: React.PropTypes.shape({
+        name: React.PropTypes.string.isRequired,
+        description: React.PropTypes.string.isRequired,
+        id: React.PropTypes.string.isRequired,
+    }),
 };
 
 

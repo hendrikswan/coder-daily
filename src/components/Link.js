@@ -32,7 +32,7 @@ class Link extends React.Component {
                             onClick={
                                 (e) => {
                                     e.preventDefault();
-                                    this.props.onVoteUp({ link });
+                                    this.props.onVoteUp(link);
                                 }
                         }>
                             <UpArrow
@@ -57,7 +57,7 @@ class Link extends React.Component {
                             onClick={
                                 (e) => {
                                     e.preventDefault();
-                                    this.props.onVoteDown({ link });
+                                    this.props.onVoteDown(link);
                                 }
                         }>
                             <DownArrow

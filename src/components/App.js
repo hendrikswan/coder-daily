@@ -1,6 +1,6 @@
 import React from 'react';
 import Navigation from './Navigation';
-import LinkList from './LinkList';
+import LinkListContainer from '../containers/LinkListContainer';
 import Form from './Form';
 
 
@@ -14,7 +14,7 @@ class App extends React.Component {
             );
         } else {
             component = (
-                <LinkList />
+                <LinkListContainer />
             );
         }
 

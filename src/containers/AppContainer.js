@@ -6,7 +6,6 @@ const mapStateToProps = (state) => {
     return {
         topics: state.topics,
         adding: state.adding,
-        links: state.links,
     };
 };
 
