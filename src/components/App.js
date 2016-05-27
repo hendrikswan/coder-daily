@@ -3,6 +3,8 @@ import Navigation from './Navigation';
 import store from '../store';
 import { init, selectTopic } from '../actions';
 import { browserHistory } from 'react-router';
+import LinkList from './LinkList';
+import Form from './Form';
 
 
 class App extends React.Component {
@@ -26,6 +28,19 @@ class App extends React.Component {
 
     render() {
 
+        let component;
+
+        if (this.state.adding) {
+            component = (
+                <Form />
+            );
+        } else {
+            component = (
+                <LinkList />
+            );
+        }
+
+
         return (
             <div>
                 <Navigation
@@ -33,7 +48,7 @@ class App extends React.Component {
                     onTopicSelected={this.onTopicSelected}
                 />
 
-                {this.props.children}
+                {component}
             </div>
         );
     }

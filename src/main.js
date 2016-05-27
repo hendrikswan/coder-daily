@@ -5,6 +5,8 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import App from './components/App';
 import LinkList from './components/LinkList';
 import Form from './components/Form';
+import store from './store';
+import { Provider } from 'react-redux'
 
 // Needed for onTouchTap
 // Can go away when react 1.0 release
@@ -14,13 +16,17 @@ injectTapEventPlugin();
 
 
 ReactDom.render((
-    <Router
-        history={hashHistory}
-    >
-        <Route path="/" component={App}>
-            <IndexRoute component={LinkList} />
-            <Route path="/list" component={LinkList} />
-            <Route path="/add" component={Form} />
-        </Route>
-    </Router>
+    // <Router
+    //     history={hashHistory}
+    // >
+    //     <Route path="/" component={App}>
+    //         <IndexRoute component={LinkList} />
+    //         <Route path="/list" component={LinkList} />
+    //         <Route path="/add" component={Form} />
+    //     </Route>
+    // </Router>
+
+    <Provider>
+        <App />
+    </Provider>
 ), document.getElementById('app'));
