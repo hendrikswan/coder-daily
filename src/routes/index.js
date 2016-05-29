@@ -7,7 +7,7 @@ import Form from '../components/Form';
 export default (
     <Route path="/" component={App}>
         <IndexRoute component={LinkList} />
-        <Route path="/list" component={LinkList} />
+        <Route path="/list/:selectedTopic" component={LinkList} />
         <Route path="/add" component={Form} />
     </Route>
 );

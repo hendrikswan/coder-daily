@@ -11,6 +11,7 @@ function requestLinks() {
     };
 }
 
+// use argument destructuring...
 export const RECEIVE_LINKS = 'RECEIVE_LINKS';
 function receiveLinks(links) {
     return {
@@ -69,10 +70,24 @@ export function fetchLinks() {
 
 export function selectTopic({ topic }) {
     return (dispatch) => {
+        // dispatch({
+        //     type:,
+        //     topic,
+        // });
+        // dispatch(fetchLinks());
+
+        dispatch(push(`/list/${topic.name}`));
+    };
+}
+
+export const LOAD_TOPIC = 'LOAD_TOPIC';
+export function loadTopic({ topicName }) {
+    return (dispatch) => {
         dispatch({
-            type: SELECT_TOPIC,
-            topic,
+            type: LOAD_TOPIC,
+            topicName,
         });
+
         dispatch(fetchLinks());
     };
 }

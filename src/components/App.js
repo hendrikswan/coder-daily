@@ -18,7 +18,27 @@ class App extends React.Component {
         );
     }
 
-    componentDidMount() {
+    loadData(props) {
+        // this.selectedTop
+        this.props.loadTopic(props.selectedTopic);
+    }
+
+    // componentWillMount() {
+    //     this.loadData(this.props);
+    // }
+
+    componentWillReceiveProps(nextProps) {
+        // if (nextProps.routing. !== this.props.fullName) {
+        //     this.loadData(nextProps);
+        // }
+
+        if (nextProps.selectedTopic !== this.props.selectedTopic) {
+            // debugger;
+            this.loadData(nextProps);
+        }
+    }
+
+    componentWillMount() {
         this.props.onLoad();
     }
 }
@@ -33,8 +53,10 @@ App.propTypes = {
         })
     ).isRequired,
     adding: React.PropTypes.bool.isRequired,
-    onTopicSelected: React.PropTypes.func.isRequired,
+    onTopicSelected: React.PropTypes.func.isRequired, // rename
     onLoad: React.PropTypes.func.isRequired,
+    selectedTopic: React.PropTypes.string.isRequired,
+    loadTopic: React.PropTypes.func.isRequired,
 };
 
 export default App;

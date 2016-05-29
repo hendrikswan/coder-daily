@@ -3,7 +3,7 @@ import {
     RECEIVE_LINKS,
     REQUEST_LINKS,
     RECEIVE_TOPICS,
-    SELECT_TOPIC,
+    LOAD_TOPIC,
     VOTE_LINK,
 } from '../actions';
 import { routerReducer as routing } from 'react-router-redux';
@@ -18,6 +18,19 @@ const defaultState = {
     loadingLinks: false,
     adding: false,
 };
+
+function loadTopic({ state, action: { topicName } }) {
+    const topic = state.topics.filter(t => t.name === topicName)[0];
+
+    if (!topic) {
+        return state;
+    }
+
+    return Object.assign({}, state, {
+        selectedTopic: topic,
+    });
+}
+
 
 function mainReducer(state = defaultState, action) {
     switch (action.type) {
@@ -36,10 +49,9 @@ function mainReducer(state = defaultState, action) {
             selectedTopic: action.topics[0],
             topics: action.topics,
         });
-    case SELECT_TOPIC:
-        return Object.assign({}, state, {
-            selectedTopic: action.topic,
-        });
+    case LOAD_TOPIC:
+        return loadTopic({ state, action })
+    // do similar to load topic
     case VOTE_LINK:
         const linkIndex = state.links.indexOf(action.link);
         return Object.assign({}, state, {
