@@ -4,8 +4,8 @@ import { init, selectTopic } from '../actions';
 
 const mapStateToProps = (state) => {
     return {
-        topics: state.topics,
-        adding: state.adding,
+        topics: state.main.topics,
+        adding: state.main.adding,
     };
 };
 

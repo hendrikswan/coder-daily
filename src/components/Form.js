@@ -57,7 +57,6 @@ class Form extends React.Component {
 
     onCancel = ({ url, description }) => {
         store.dispatch(cancelAdd());
-        this.context.router.goBack();
     }
 
     render() {

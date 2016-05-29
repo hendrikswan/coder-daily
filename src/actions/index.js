@@ -1,8 +1,7 @@
-export const CANCEL_ADD = 'CANCEL_ADD';
+import { push, goBack } from 'react-router-redux'
+
 export function cancelAdd() {
-    return {
-        type: CANCEL_ADD,
-    };
+    return (dispatch) => dispatch(goBack());
 }
 
 export const REQUEST_LINKS = 'REQUEST_LINKS';
@@ -35,10 +34,9 @@ function receiveTopics(topics) {
     };
 }
 
-export const START_ADD = 'START_ADD';
 export function startAdd() {
-    return {
-        type: START_ADD,
+    return (dispatch) => {
+        dispatch(push('/add'));
     };
 }
 
@@ -60,7 +58,7 @@ export function receiveAdd() {
 export function fetchLinks() {
     return (dispatch, getState) => {
         dispatch(requestLinks());
-        const selectedTopic = getState().selectedTopic;
+        const selectedTopic = getState().main.selectedTopic;
         fetch(`http://localhost:3000/topics/${selectedTopic.id}/links`)
         .then(linkResponse => linkResponse.json())
         .then(links => {

@@ -1,13 +1,12 @@
+import { combineReducers } from 'redux';
 import {
     RECEIVE_LINKS,
     REQUEST_LINKS,
     RECEIVE_TOPICS,
-    START_ADD,
     SELECT_TOPIC,
     VOTE_LINK,
-    CANCEL_ADD,
 } from '../actions';
-
+import { routerReducer as routing } from 'react-router-redux';
 
 const defaultState = {
     topics: [],
@@ -20,7 +19,7 @@ const defaultState = {
     adding: false,
 };
 
-function mainStore(state = defaultState, action) {
+function mainReducer(state = defaultState, action) {
     switch (action.type) {
     case RECEIVE_LINKS:
         return Object.assign({}, state, {
@@ -37,17 +36,9 @@ function mainStore(state = defaultState, action) {
             selectedTopic: action.topics[0],
             topics: action.topics,
         });
-    case START_ADD:
-        return Object.assign({}, state, {
-            adding: true,
-        });
     case SELECT_TOPIC:
         return Object.assign({}, state, {
             selectedTopic: action.topic,
-        });
-    case CANCEL_ADD:
-        return Object.assign({}, state, {
-            adding: false,
         });
     case VOTE_LINK:
         const linkIndex = state.links.indexOf(action.link);
@@ -65,4 +56,9 @@ function mainStore(state = defaultState, action) {
     }
 }
 
-export default mainStore;
+const rootReducer = combineReducers({
+    main: mainReducer,
+    routing,
+});
+
+export default rootReducer;

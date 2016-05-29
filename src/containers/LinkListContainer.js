@@ -4,8 +4,8 @@ import { voteLink, startAdd } from '../actions';
 
 const mapStateToProps = (state) => {
     return {
-        links: state.links,
-        selectedTopic: state.selectedTopic,
+        links: state.main.links,
+        selectedTopic: state.main.selectedTopic,
     };
 };
 

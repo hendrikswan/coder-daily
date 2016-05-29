@@ -6,26 +6,14 @@ import Form from './Form';
 
 class App extends React.Component {
     render() {
-        let component;
-
-        if (this.props.adding) {
-            component = (
-                <Form />
-            );
-        } else {
-            component = (
-                <LinkListContainer />
-            );
-        }
-
-
         return (
             <div>
                 <Navigation
-                    {...this.props}
+                    topics={this.props.topics}
+                    onTopicSelected={this.props.onTopicSelected}
                 />
 
-                {component}
+                {this.props.children}
             </div>
         );
     }

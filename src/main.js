@@ -1,13 +1,15 @@
 import ReactDom from 'react-dom';
 import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { Router, Route, hashHistory, IndexRoute } from 'react-router';
-import AppContainer from './containers/AppContainer';
-import LinkList from './components/LinkList';
-import Form from './components/Form';
+import { Router } from 'react-router';
 import store from './store';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
+import routes from './routes';
+import { syncHistoryWithStore } from 'react-router-redux';
+import { browserHistory } from 'react-router';
+import DevTools from './containers/DevTools';
 
+const history = syncHistoryWithStore(browserHistory, store);
 // Needed for onTouchTap
 // Can go away when react 1.0 release
 // Check this repo:
@@ -27,6 +29,9 @@ ReactDom.render((
     // </Router>
 
     <Provider store={store}>
-        <AppContainer />
+        <div>
+            <Router history={history} routes={routes} />
+            <DevTools />
+        </div>
     </Provider>
 ), document.getElementById('app'));
