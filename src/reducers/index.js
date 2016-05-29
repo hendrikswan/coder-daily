@@ -19,15 +19,14 @@ const defaultState = {
     adding: false,
 };
 
-function loadTopic({ state, action: { topicName } }) {
-    const topic = state.topics.filter(t => t.name === topicName)[0];
-
-    if (!topic) {
-        return state;
-    }
+function receiveTopics({ state, action: { topics } }) {
+    const selectedTopic = state.selectedTopicName ?
+        topics.filter(t => t.name === state.selectedTopicName)[0] :
+        topics[0];
 
     return Object.assign({}, state, {
-        selectedTopic: topic,
+        selectedTopic,
+        topics,
     });
 }
 
@@ -45,12 +44,13 @@ function mainReducer(state = defaultState, action) {
             loadingLinks: true,
         });
     case RECEIVE_TOPICS:
+        return receiveTopics({ state, action })
+    case LOAD_TOPIC:
         return Object.assign({}, state, {
-            selectedTopic: action.topics[0],
+            selectedTopicName: action.selectedTopicName,
             topics: action.topics,
         });
-    case LOAD_TOPIC:
-        return loadTopic({ state, action })
+
     // do similar to load topic
     case VOTE_LINK:
         const linkIndex = state.links.indexOf(action.link);

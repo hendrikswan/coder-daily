@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { init, selectTopic, loadTopic } from '../actions';
+import { selectTopic, loadTopic } from '../actions';
 
 const mapStateToProps = (state, ownProps) => {
     return {
         topics: state.main.topics,
         adding: state.main.adding,
-        selectedTopic: ownProps.params.selectedTopic,
+        selectedTopicName: ownProps.params.selectedTopicName,
     };
 };
 
@@ -15,10 +15,10 @@ const mapDispatchToProps = (dispatch) => {
         onTopicSelected: (topic) => {
             dispatch(selectTopic(topic));
         },
-        onLoad: () => {
-            dispatch(init());
-        },
-        loadTopic: (topicName) => dispatch(loadTopic({ topicName })),
+        // onLoad: () => {
+        //     dispatch(init());
+        // },
+        loadTopic: (selectedTopicName) => dispatch(loadTopic({ selectedTopicName })),
     };
 };
 

@@ -80,18 +80,6 @@ export function selectTopic({ topic }) {
     };
 }
 
-export const LOAD_TOPIC = 'LOAD_TOPIC';
-export function loadTopic({ topicName }) {
-    return (dispatch) => {
-        dispatch({
-            type: LOAD_TOPIC,
-            topicName,
-        });
-
-        dispatch(fetchLinks());
-    };
-}
-
 export const VOTE_LINK = 'VOTE_LINK';
 export function voteLink({ link, increment }) {
     return (dispatch) => {
@@ -150,6 +138,18 @@ export function fetchTopics() {
             dispatch(receiveTopics(topics));
             dispatch(fetchLinks());
         });
+    };
+}
+
+export const LOAD_TOPIC = 'LOAD_TOPIC';
+export function loadTopic({ selectedTopicName }) {
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_TOPIC,
+            selectedTopicName,
+        });
+
+        dispatch(fetchTopics());
     };
 }
 

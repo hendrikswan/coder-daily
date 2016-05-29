@@ -1,7 +1,5 @@
 import React from 'react';
 import Navigation from './Navigation';
-import LinkListContainer from '../containers/LinkListContainer';
-import Form from './Form';
 
 
 class App extends React.Component {
@@ -20,26 +18,18 @@ class App extends React.Component {
 
     loadData(props) {
         // this.selectedTop
-        this.props.loadTopic(props.selectedTopic);
-    }
-
-    // componentWillMount() {
-    //     this.loadData(this.props);
-    // }
-
-    componentWillReceiveProps(nextProps) {
-        // if (nextProps.routing. !== this.props.fullName) {
-        //     this.loadData(nextProps);
-        // }
-
-        if (nextProps.selectedTopic !== this.props.selectedTopic) {
-            // debugger;
-            this.loadData(nextProps);
-        }
+        this.props.loadTopic(props.selectedTopicName);
     }
 
     componentWillMount() {
-        this.props.onLoad();
+        this.loadData(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.selectedTopicName !== this.props.selectedTopicName) {
+            // debugger;
+            this.loadData(nextProps);
+        }
     }
 }
 
@@ -55,7 +45,7 @@ App.propTypes = {
     adding: React.PropTypes.bool.isRequired,
     onTopicSelected: React.PropTypes.func.isRequired, // rename
     onLoad: React.PropTypes.func.isRequired,
-    selectedTopic: React.PropTypes.string.isRequired,
+    selectedTopicName: React.PropTypes.string.isRequired,
     loadTopic: React.PropTypes.func.isRequired,
 };
 
