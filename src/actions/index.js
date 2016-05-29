@@ -67,7 +67,6 @@ export function fetchLinks() {
     };
 }
 
-export const SELECT_TOPIC = 'SELECT_TOPIC';
 export function selectTopic({ topic }) {
     return (dispatch) => {
         dispatch({
