@@ -23,7 +23,7 @@ class Navigation extends React.Component {
                 <MenuItem
                     linkButton={true}
                     key={topic.id}
-                    href={"#/topics/" + topic.id}
+                    // href={"#/topics/" + topic.id}
                     onTouchTap={() => {
                         this.props.onTopicSelected({ topic });
                         this.setState({ open: false });
