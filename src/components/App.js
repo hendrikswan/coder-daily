@@ -22,8 +22,7 @@ class App extends React.Component {
         return (
             <div>
                 <Navigation
-                    topics={this.props.topics}
-                    onTopicSelected={this.props.onTopicSelected}
+                    {...this.props}
                 />
 
                 {component}
