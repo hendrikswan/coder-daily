@@ -31,7 +31,6 @@ ReactDom.render((
     <Provider store={store}>
         <div>
             <Router history={history} routes={routes} />
-            <DevTools />
         </div>
     </Provider>
 ), document.getElementById('app'));

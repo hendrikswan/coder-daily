@@ -106,7 +106,7 @@ export function voteLink({ link, increment }) {
 // handle wonkyness with long duration on server
 export function add({ url, description }) {
     return (dispatch, getState) => {
-        const selectedTopic = getState().selectedTopic;
+        const selectedTopic = getState().main.selectedTopic;
         fetch(`http://localhost:3000/topics/${selectedTopic.id}/links`, {
             method: 'POST',
             headers: {
