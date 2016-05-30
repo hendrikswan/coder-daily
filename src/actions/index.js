@@ -36,8 +36,9 @@ function receiveTopics(topics) {
 }
 
 export function startAdd() {
-    return (dispatch) => {
-        dispatch(push('/add'));
+    return (dispatch, getState) => {
+        const selectedTopic = getState().main.selectedTopic;
+        dispatch(push(`/list/${selectedTopic.name}/add`));
     };
 }
 

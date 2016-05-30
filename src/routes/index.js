@@ -8,6 +8,6 @@ export default (
     <Route path="/" component={App}>
         <IndexRoute component={LinkList} />
         <Route path="/list/:selectedTopicName" component={LinkList} />
-        <Route path="/add" component={Form} />
+        <Route path="/list/:selectedTopicName/add" component={Form} />
     </Route>
 );
