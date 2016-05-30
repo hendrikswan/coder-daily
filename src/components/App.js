@@ -1,9 +1,15 @@
 import React from 'react';
 import Navigation from './Navigation';
-
+import Loader from './Loader';
 
 class App extends React.Component {
     render() {
+        if (!this.props.topics || this.props.topics.length === 0) {
+            return (
+                <Loader />
+            );
+        }
+
         return (
             <div>
                 <Navigation
@@ -18,10 +24,13 @@ class App extends React.Component {
 
     loadData(props) {
         // this.selectedTop
-        this.props.loadTopic(props.selectedTopicName);
+        if (props.selectedTopicName || props.topics.length === 0) {
+            this.props.loadTopic(props.selectedTopicName);
+        }
     }
 
     componentWillMount() {
+        console.log('APP MOUNTING!!!');
         this.loadData(this.props);
     }
 
@@ -41,12 +50,12 @@ App.propTypes = {
             description: React.PropTypes.string.isRequired,
             id: React.PropTypes.string.isRequired,
         })
-    ).isRequired,
+    ),
     adding: React.PropTypes.bool.isRequired,
     onTopicSelected: React.PropTypes.func.isRequired, // rename
-    onLoad: React.PropTypes.func.isRequired,
-    selectedTopicName: React.PropTypes.string.isRequired,
+    selectedTopicName: React.PropTypes.string,
     loadTopic: React.PropTypes.func.isRequired,
+    children: React.PropTypes.element,
 };
 
 export default App;

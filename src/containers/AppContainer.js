@@ -15,9 +15,6 @@ const mapDispatchToProps = (dispatch) => {
         onTopicSelected: (topic) => {
             dispatch(selectTopic(topic));
         },
-        // onLoad: () => {
-        //     dispatch(init());
-        // },
         loadTopic: (selectedTopicName) => dispatch(loadTopic({ selectedTopicName })),
     };
 };

@@ -19,17 +19,31 @@ const defaultState = {
     adding: false,
 };
 
-function receiveTopics({ state, action: { topics } }) {
+function setSelectedTopic({ state }) {
     const selectedTopic = state.selectedTopicName ?
-        topics.filter(t => t.name === state.selectedTopicName)[0] :
-        topics[0];
+        state.topics.filter(t => t.name === state.selectedTopicName)[0] :
+        state.topics[0];
 
     return Object.assign({}, state, {
         selectedTopic,
-        topics,
     });
 }
 
+function receiveTopics({ state, action: { topics } }) {
+    const stateWithTopics = Object.assign({}, state, {
+        topics,
+    });
+
+    return setSelectedTopic({ state: stateWithTopics });
+}
+
+function loadTopic({ state, action: { selectedTopicName } }) {
+    const stateWithTopicName = Object.assign({}, state, {
+        selectedTopicName,
+    });
+
+    return setSelectedTopic({ state: stateWithTopicName });
+}
 
 function mainReducer(state = defaultState, action) {
     switch (action.type) {
@@ -44,13 +58,9 @@ function mainReducer(state = defaultState, action) {
             loadingLinks: true,
         });
     case RECEIVE_TOPICS:
-        return receiveTopics({ state, action })
+        return receiveTopics({ state, action });
     case LOAD_TOPIC:
-        return Object.assign({}, state, {
-            selectedTopicName: action.selectedTopicName,
-            topics: action.topics,
-        });
-
+        return loadTopic({ state, action });
     // do similar to load topic
     case VOTE_LINK:
         const linkIndex = state.links.indexOf(action.link);

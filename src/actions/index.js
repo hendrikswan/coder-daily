@@ -143,13 +143,18 @@ export function fetchTopics() {
 
 export const LOAD_TOPIC = 'LOAD_TOPIC';
 export function loadTopic({ selectedTopicName }) {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         dispatch({
             type: LOAD_TOPIC,
             selectedTopicName,
         });
 
-        dispatch(fetchTopics());
+        const topics = getState().main.topics;
+        if (!topics || topics.length === 0) {
+            dispatch(fetchTopics());
+        } else {
+            dispatch(fetchLinks());
+        }
     };
 }
 

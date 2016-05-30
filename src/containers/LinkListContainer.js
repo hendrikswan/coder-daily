@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import LinkList from '../components/LinkList';
 import { voteLink, startAdd } from '../actions';
-import React from 'react';
 
 const mapStateToProps = (state) => {
     return {

@@ -3,8 +3,8 @@ import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import reducers from './reducers';
 import { routerMiddleware as createRouterMiddleware } from 'react-router-redux';
-import { browserHistory } from 'react-router';
-const routerMiddleware = createRouterMiddleware(browserHistory);
+import { hashHistory } from 'react-router';
+const routerMiddleware = createRouterMiddleware(hashHistory);
 import DevTools from './containers/DevTools';
 
 const loggerMiddleware = createLogger();
