@@ -1,21 +1,26 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { selectTopic, loadTopic } from '../actions';
+import { selectTopic, loadTopic, checkAuth, showLock } from '../actions';
 
 const mapStateToProps = (state, ownProps) => {
     return {
         topics: state.main.topics,
         adding: state.main.adding,
         selectedTopicName: ownProps.params.selectedTopicName,
+        isLoggedIn: state.main.isLoggedIn,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onTopicSelected: (topic) => {
-            dispatch(selectTopic(topic));
-        },
-        loadTopic: (selectedTopicName) => dispatch(loadTopic({ selectedTopicName })),
+        onTopicSelected: (topic) =>
+            dispatch(selectTopic(topic)),
+        loadTopic: (selectedTopicName) =>
+            dispatch(loadTopic({ selectedTopicName })),
+        checkAuth: () =>
+            dispatch(checkAuth()),
+        showLock: () =>
+            dispatch(showLock()),
     };
 };
 

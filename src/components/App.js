@@ -13,8 +13,10 @@ class App extends React.Component {
         return (
             <div>
                 <Navigation
+                    isLoggedIn={this.props.isLoggedIn}
                     topics={this.props.topics}
                     onTopicSelected={this.props.onTopicSelected}
+                    showLock={this.props.showLock}
                 />
 
                 {this.props.children}
@@ -30,9 +32,10 @@ class App extends React.Component {
     }
 
     componentWillMount() {
-        console.log('APP MOUNTING!!!');
         this.loadData(this.props);
+        this.props.checkAuth();
     }
+
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.selectedTopicName !== this.props.selectedTopicName) {
@@ -53,9 +56,13 @@ App.propTypes = {
     ),
     adding: React.PropTypes.bool.isRequired,
     onTopicSelected: React.PropTypes.func.isRequired, // rename
+    checkAuth: React.PropTypes.func.isRequired,
+    showLock: React.PropTypes.func.isRequired,
     selectedTopicName: React.PropTypes.string,
     loadTopic: React.PropTypes.func.isRequired,
     children: React.PropTypes.element,
+    idToken: React.PropTypes.string,
+    isLoggedIn: React.PropTypes.bool.isRequired,
 };
 
 export default App;

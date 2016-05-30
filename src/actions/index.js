@@ -1,4 +1,5 @@
-import { push, goBack } from 'react-router-redux'
+import { push, goBack } from 'react-router-redux';
+import auth from '../auth';
 
 export function cancelAdd() {
     return (dispatch) => dispatch(goBack());
@@ -39,6 +40,24 @@ export function startAdd() {
     return (dispatch, getState) => {
         const selectedTopic = getState().main.selectedTopic;
         dispatch(push(`/list/${selectedTopic.name}/add`));
+    };
+}
+
+export const STORE_AUTH_TOKEN = 'STORE_AUTH_TOKEN';
+export function checkAuth() {
+    return (dispatch, getState) => {
+        // this.setState({ idToken: this.getIdToken() });
+        const idToken = auth.getIdToken();
+        return dispatch({
+            type: STORE_AUTH_TOKEN,
+            idToken,
+        });
+    };
+}
+
+export function showLock() {
+    return () => {
+        auth.showLock();
     };
 }
 

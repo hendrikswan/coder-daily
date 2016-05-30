@@ -3,7 +3,7 @@ import AppBar from 'material-ui/lib/app-bar';
 import LeftNav from 'material-ui/lib/left-nav';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import List from 'material-ui/lib/lists/list';
-
+import RaisedButton from 'material-ui/lib/raised-button';
 
 
 class Navigation extends React.Component {
@@ -34,6 +34,18 @@ class Navigation extends React.Component {
             );
         });
 
+        let authButton = (
+            <RaisedButton
+                label="Login"
+                primary={true}
+                onMouseUp={this.props.showLock}
+            />
+        );
+
+        if (this.props.isLoggedIn) {
+            authButton = null;
+        }
+
         return (
             <div>
                 <AppBar
@@ -51,6 +63,8 @@ class Navigation extends React.Component {
                     <List>
                         {topicNodes}
                     </List>
+
+                    {authButton}
                 </LeftNav>
             </div>
         );
@@ -65,6 +79,8 @@ Navigation.propTypes = {
             id: React.PropTypes.string.isRequired,
         })
     ).isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
+    showLock: React.PropTypes.func.isRequired,
 };
 
 export default Navigation;

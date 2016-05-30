@@ -6,10 +6,10 @@ import store from './store';
 import { Provider } from 'react-redux';
 import routes from './routes';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import DevTools from './containers/DevTools';
 
-const history = syncHistoryWithStore(hashHistory, store);
+const history = syncHistoryWithStore(browserHistory, store);
 // Needed for onTouchTap
 // Can go away when react 1.0 release
 // Check this repo:
@@ -31,6 +31,7 @@ ReactDom.render((
     <Provider store={store}>
         <div>
             <Router history={history} routes={routes} />
+            <DevTools />
         </div>
     </Provider>
 ), document.getElementById('app'));
