@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { selectTopic, loadTopic, checkAuth, showLock } from '../actions';
+import { selectTopic, loadTopic, checkAuth, showLock, logOut } from '../actions';
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -21,6 +21,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(checkAuth()),
         showLock: () =>
             dispatch(showLock()),
+        logOut: () =>
+            dispatch(logOut()),
     };
 };
 

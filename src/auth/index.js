@@ -15,6 +15,12 @@ class Auth {
         this.lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
     }
 
+    logOut() {
+        console.log('logging out');
+        localStorage.removeItem('userToken');
+        window.location.href = 'https://hendrikswan.eu.auth0.com/v2/logout?returnTo=http://localhost:8080';
+    }
+
     getProfile({ idToken }) {
         return new Promise((resolve, reject) => {
             this.lock.getProfile(idToken, (err, profile) => {

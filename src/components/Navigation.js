@@ -49,7 +49,9 @@ class Navigation extends React.Component {
                     icon={<Avatar src={this.props.profile.picture} />}
                     label="Log out"
                     primary={true}
-                    onMouseUp={this.props.showLock}
+                    onMouseUp={this.props.logOut}
+                    // linkButton={true}
+                    // href="https://hendrikswan.eu.auth0.com/v2/logout?returnTo=http://localhost:8080"
                 />
             );
         }
@@ -90,6 +92,7 @@ Navigation.propTypes = {
         name: React.PropTypes.string.isRequired,
     }),
     showLock: React.PropTypes.func.isRequired,
+    logOut: React.PropTypes.func.isRequired,
 };
 
 export default Navigation;

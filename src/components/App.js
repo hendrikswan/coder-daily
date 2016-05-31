@@ -13,11 +13,11 @@ class App extends React.Component {
         return (
             <div>
                 <Navigation
-                    isLoggedIn={this.props.profile}
                     topics={this.props.topics}
                     onTopicSelected={this.props.onTopicSelected}
                     showLock={this.props.showLock}
                     profile={this.props.profile}
+                    logOut={this.props.logOut}
                 />
 
                 {this.props.children}
@@ -66,6 +66,7 @@ App.propTypes = {
     profile: React.PropTypes.shape({
         name: React.PropTypes.string.isRequired,
     }),
+    logOut: React.PropTypes.func.isRequired,
 };
 
 export default App;

@@ -79,6 +79,12 @@ export function checkAuth() {
     };
 }
 
+export function logOut() {
+    return () => {
+        auth.logOut();
+    };
+}
+
 export function showLock() {
     return () => {
         auth.showLock();
@@ -123,6 +129,7 @@ export function selectTopic({ topic }) {
         dispatch(push(`/list/${topic.name}`));
     };
 }
+
 
 export const VOTE_LINK = 'VOTE_LINK';
 export function voteLink({ link, increment }) {
