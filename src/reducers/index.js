@@ -5,7 +5,7 @@ import {
     RECEIVE_TOPICS,
     LOAD_TOPIC,
     VOTE_LINK,
-    STORE_AUTH_TOKEN,
+    STORE_AUTH_INFO,
 } from '../actions';
 import { routerReducer as routing } from 'react-router-redux';
 
@@ -18,7 +18,6 @@ const defaultState = {
     },
     loadingLinks: false,
     adding: false,
-    isLoggedIn: false,
 };
 
 function setSelectedTopic({ state }) {
@@ -75,10 +74,10 @@ function mainReducer(state = defaultState, action) {
                 ...state.links.slice(linkIndex + 1)
             ],
         });
-    case STORE_AUTH_TOKEN:
+    case STORE_AUTH_INFO:
         return Object.assign({}, state, {
             idToken: action.idToken,
-            isLoggedIn: !!action.idToken,
+            profile: action.profile,
         });
     default:
         return state;

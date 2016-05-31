@@ -1,6 +1,6 @@
-var AUTH0_CLIENT_ID='vo9u9GqQE0HdjEzjbjr1h7ST2oxjPZYj';
-var AUTH0_DOMAIN='hendrikswan.eu.auth0.com';
-var AUTH0_CALLBACK_URL=location.href;
+const AUTH0_CLIENT_ID = 'vo9u9GqQE0HdjEzjbjr1h7ST2oxjPZYj';
+const AUTH0_DOMAIN = 'hendrikswan.eu.auth0.com';
+// const AUTH0_CALLBACK_URL = location.href;
 
 class Auth {
     constructor() {
@@ -15,6 +15,18 @@ class Auth {
         this.lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
     }
 
+    getProfile({ idToken }) {
+        return new Promise((resolve, reject) => {
+            this.lock.getProfile(idToken, (err, profile) => {
+                if (err) {
+                    return reject(err);
+                }
+
+                return resolve(profile);
+            });
+        });
+    }
+
     getIdToken() {
         let idToken = localStorage.getItem('userToken');
         const authHash = this.lock.parseHash(window.location.hash);
@@ -25,7 +37,7 @@ class Auth {
             }
 
             if (authHash.error) {
-                console.log("Error signing in", authHash);
+                console.log('Error signing in', authHash);
             }
         }
         return idToken;

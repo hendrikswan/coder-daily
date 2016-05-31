@@ -43,15 +43,39 @@ export function startAdd() {
     };
 }
 
-export const STORE_AUTH_TOKEN = 'STORE_AUTH_TOKEN';
+
+export const STORE_AUTH_INFO = 'STORE_AUTH_INFO';
+
 export function checkAuth() {
     return (dispatch, getState) => {
-        // this.setState({ idToken: this.getIdToken() });
+
         const idToken = auth.getIdToken();
-        return dispatch({
-            type: STORE_AUTH_TOKEN,
-            idToken,
-        });
+        const profile = getState().main.profile;
+
+
+        if (idToken && profile) {
+            return dispatch({
+                type: STORE_AUTH_INFO,
+                idToken,
+                profile,
+            });
+        }
+
+
+        if (idToken && !getState().main.profile) {
+            return auth.getProfile({ idToken })
+                .then((loadedProfile) => {
+                    if (loadedProfile) {
+                        dispatch({
+                            type: STORE_AUTH_INFO,
+                            idToken,
+                            profile: loadedProfile,
+                        });
+                    }
+                });
+        }
+
+        return null;
     };
 }
 

@@ -7,7 +7,7 @@ const mapStateToProps = (state, ownProps) => {
         topics: state.main.topics,
         adding: state.main.adding,
         selectedTopicName: ownProps.params.selectedTopicName,
-        isLoggedIn: state.main.isLoggedIn,
+        profile: state.main.profile,
     };
 };
 

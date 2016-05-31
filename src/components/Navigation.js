@@ -3,7 +3,8 @@ import AppBar from 'material-ui/lib/app-bar';
 import LeftNav from 'material-ui/lib/left-nav';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import List from 'material-ui/lib/lists/list';
-import RaisedButton from 'material-ui/lib/raised-button';
+import FlatButton from 'material-ui/lib/flat-button';
+import Avatar from 'material-ui/lib/Avatar';
 
 
 class Navigation extends React.Component {
@@ -35,15 +36,22 @@ class Navigation extends React.Component {
         });
 
         let authButton = (
-            <RaisedButton
-                label="Login"
+            <FlatButton
+                label="Log in"
                 primary={true}
                 onMouseUp={this.props.showLock}
             />
         );
 
-        if (this.props.isLoggedIn) {
-            authButton = null;
+        if (this.props.profile) {
+            authButton = (
+                <FlatButton
+                    icon={<Avatar src={this.props.profile.picture} />}
+                    label="Log out"
+                    primary={true}
+                    onMouseUp={this.props.showLock}
+                />
+            );
         }
 
         return (
@@ -52,6 +60,7 @@ class Navigation extends React.Component {
                     title="Coder daily"
                     onTitleTouchTap={this.toggle}
                     onLeftIconButtonTouchTap={this.toggle}
+                    iconElementRight={authButton}
                 >
                 </AppBar>
 
@@ -63,8 +72,6 @@ class Navigation extends React.Component {
                     <List>
                         {topicNodes}
                     </List>
-
-                    {authButton}
                 </LeftNav>
             </div>
         );
@@ -79,7 +86,9 @@ Navigation.propTypes = {
             id: React.PropTypes.string.isRequired,
         })
     ).isRequired,
-    isLoggedIn: PropTypes.bool.isRequired,
+    profile: React.PropTypes.shape({
+        name: React.PropTypes.string.isRequired,
+    }),
     showLock: React.PropTypes.func.isRequired,
 };
 
