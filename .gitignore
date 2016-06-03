@@ -10,3 +10,6 @@ node_modules
 build
 
 public
+
+web_task_server/deploy.sh
+deploy.sh
