@@ -120,12 +120,6 @@ export function fetchLinks() {
 
 export function selectTopic({ topic }) {
     return (dispatch) => {
-        // dispatch({
-        //     type:,
-        //     topic,
-        // });
-        // dispatch(fetchLinks());
-
         dispatch(push(`/list/${topic.name}`));
     };
 }
@@ -133,7 +127,7 @@ export function selectTopic({ topic }) {
 
 export const VOTE_LINK = 'VOTE_LINK';
 export function voteLink({ link, increment }) {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         dispatch({
             type: VOTE_LINK,
             link,
@@ -144,6 +138,7 @@ export function voteLink({ link, increment }) {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${getState().main.idToken}`,
             },
             body: JSON.stringify({
                 increment,
@@ -163,6 +158,7 @@ export function add({ url, description }) {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${getState().main.idToken}`,
             },
             body: JSON.stringify({
                 url,

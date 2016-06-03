@@ -4,7 +4,11 @@ import React from 'react';
 
 const Loader = () => {
     return (
-        <Card>
+        <Card style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+        }}>
             <CircularProgress />
         </Card>
     );

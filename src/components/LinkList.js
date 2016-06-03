@@ -4,8 +4,15 @@ import capitalize from 'capitalize';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
 import ContentAdd from 'material-ui/lib/svg-icons/content/add';
 import Link from './Link';
+import Loader from './Loader';
 
-const LinkList = ({ links, selectedTopic, onVoteUp, onVoteDown, onAdd }) => {
+const LinkList = ({ links, selectedTopic, onVoteUp, onVoteDown, onAdd, loadingLinks }) => {
+    if (loadingLinks) {
+        return (
+            <Loader />
+        );
+    }
+
     const linkNodes = links.map(link => (
         <Link
             key={link.id}
@@ -70,6 +77,7 @@ LinkList.propTypes = {
         name: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
     }),
+    loadingLinks: PropTypes.bool.isRequired,
 };
 
 

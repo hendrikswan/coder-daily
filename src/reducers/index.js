@@ -38,6 +38,15 @@ function receiveTopics({ state, action: { topics } }) {
     return setSelectedTopic({ state: stateWithTopics });
 }
 
+function receiveLinks({ state, action: { links } }) {
+    const stateWithLinks = Object.assign({}, state, {
+        links,
+        loadingLinks: false,
+    });
+
+    return stateWithLinks;
+}
+
 function loadTopic({ state, action: { selectedTopicName } }) {
     const stateWithTopicName = Object.assign({}, state, {
         selectedTopicName,
@@ -49,11 +58,7 @@ function loadTopic({ state, action: { selectedTopicName } }) {
 function mainReducer(state = defaultState, action) {
     switch (action.type) {
     case RECEIVE_LINKS:
-        return Object.assign({}, state, {
-            links: action.links,
-            loadingLinks: false,
-            adding: false,
-        });
+        return receiveLinks({ state, action });
     case REQUEST_LINKS:
         return Object.assign({}, state, {
             loadingLinks: true,

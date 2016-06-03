@@ -6,6 +6,12 @@ const low = require('lowdb');
 const db = low();
 const bodyParser = require('body-parser');
 const uuid = require('uuid');
+const jwt = require('express-jwt');
+
+const jwtCheck = jwt({
+    secret: new Buffer('VNXZqVCFseWn0Mm89teNg0W6ZSJYEMHxhJ5PHt9IEFBVLlwEjUJ94pFleZ7DEyxa', 'base64'),
+    audience: 'vo9u9GqQE0HdjEzjbjr1h7ST2oxjPZYj',
+});
 
 new WebPackDevServer(webpack(config), {
     publicPath: config.output.publicPath,
@@ -49,6 +55,7 @@ function setupDb() {
         topicId: topic1.id,
         id: uuid(),
         voteCount: 0,
+        voters: [],
     });
     db('links').push({
         description: 'An app to manage your finances',
@@ -56,6 +63,7 @@ function setupDb() {
         topicId: topic2.id,
         id: uuid(),
         voteCount: 0,
+        voters: [],
     });
     db('links').push({
         description: 'Go find some news yourself!',
@@ -63,6 +71,7 @@ function setupDb() {
         topicId: topic3.id,
         id: uuid(),
         voteCount: 0,
+        voters: [],
     });
 }
 
@@ -79,7 +88,7 @@ function setupServer() {
         // Request methods you wish to allow
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
         // Request headers you wish to allow
-        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
 
         // Pass to next layer of middleware
         next();
@@ -97,10 +106,18 @@ function setupServer() {
         }));
     });
 
-    app.post('/topics/:id/links', (req, res) => {
+
+    app.post('/topics/:id/links', jwtCheck, (req, res) => {
+        const existingLink = db('links').find({ url: req.body.url });
+
+        if (existingLink) {
+            return res.send(403);
+        }
+
         const link = Object.assign({}, req.body, {
             id: uuid(),
             voteCount: 0,
+            voters: [],
         });
         db('links')
             .push(link);
@@ -108,11 +125,16 @@ function setupServer() {
         res.send(link);
     });
 
-    app.post('/links/:id/vote', (req, res) => {
+    app.post('/links/:id/vote', jwtCheck, (req, res) => {
         // setTimeout(() => {
-            const link = db('links').find({ id: req.params.id });
-            link.voteCount += req.body.increment;
-            res.send(link);
+        const link = db('links').find({ id: req.params.id });
+        if (link.voters.indexOf(req.user.sub) > -1) {
+            return res.send(403);
+        }
+
+        link.voters.push(req.user.sub);
+        link.voteCount += req.body.increment;
+        res.send(link);
         // }, 1500);
     });
 
