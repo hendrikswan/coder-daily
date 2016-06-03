@@ -30,13 +30,26 @@ function setSelectedTopic({ state }) {
     });
 }
 
+function mapFromMongoArray(arr) {
+    return arr.map((i) => Object.assign({}, i, { id: i._id }));
+}
+
 function receiveTopics({ state, action: { topics } }) {
-    const mappedTopics = topics.map((t) => Object.assign({}, t, { id: t._id }));
+    const mappedTopics = mapFromMongoArray(topics);
     const stateWithTopics = Object.assign({}, state, {
         topics: mappedTopics,
     });
 
     return setSelectedTopic({ state: stateWithTopics });
+}
+
+function receiveLinks({ state, action: { links } }) {
+    const mappedLinks = mapFromMongoArray(links);
+    const stateWithLinks = Object.assign({}, state, {
+        links: mappedLinks,
+    });
+
+    return stateWithLinks;
 }
 
 function loadTopic({ state, action: { selectedTopicName } }) {
@@ -50,11 +63,7 @@ function loadTopic({ state, action: { selectedTopicName } }) {
 function mainReducer(state = defaultState, action) {
     switch (action.type) {
     case RECEIVE_LINKS:
-        return Object.assign({}, state, {
-            links: action.links,
-            loadingLinks: false,
-            adding: false,
-        });
+        return receiveLinks({ state, action })
     case REQUEST_LINKS:
         return Object.assign({}, state, {
             loadingLinks: true,

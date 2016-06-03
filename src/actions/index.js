@@ -144,7 +144,7 @@ export function voteLink({ link, increment }) {
             link,
             increment,
         });
-        fetch(`http://localhost:3000/links/${link.id}/vote`, {
+        fetch(buildWebTaskUrl('coder-daily-link-votes'), {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -152,6 +152,7 @@ export function voteLink({ link, increment }) {
             },
             body: JSON.stringify({
                 increment,
+                linkId: link.id,
             }),
         });
     };
