@@ -1,4 +1,4 @@
-const AUTH0_CLIENT_ID = 'vo9u9GqQE0HdjEzjbjr1h7ST2oxjPZYj';
+const AUTH0_CLIENT_ID='vo9u9GqQE0HdjEzjbjr1h7ST2oxjPZYj';
 const AUTH0_DOMAIN = 'hendrikswan.eu.auth0.com';
 // const AUTH0_CALLBACK_URL = location.href;
 

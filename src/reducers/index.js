@@ -31,8 +31,9 @@ function setSelectedTopic({ state }) {
 }
 
 function receiveTopics({ state, action: { topics } }) {
+    const mappedTopics = topics.map((t) => Object.assign({}, t, { id: t._id }));
     const stateWithTopics = Object.assign({}, state, {
-        topics,
+        topics: mappedTopics,
     });
 
     return setSelectedTopic({ state: stateWithTopics });

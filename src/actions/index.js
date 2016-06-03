@@ -1,6 +1,11 @@
 import { push, goBack } from 'react-router-redux';
 import auth from '../auth';
 
+
+function buildWebTaskUrl(task, qs) {
+    return `https://webtask.it.auth0.com/api/run/wt-hendrik_swanepoel-gmail_com-0/${task}?webtask_no_cache=1${qs || ''}`;
+}
+
 export function cancelAdd() {
     return (dispatch) => dispatch(goBack());
 }
@@ -110,7 +115,7 @@ export function fetchLinks() {
     return (dispatch, getState) => {
         dispatch(requestLinks());
         const selectedTopic = getState().main.selectedTopic;
-        fetch(`http://localhost:3000/topics/${selectedTopic.id}/links`)
+        fetch(buildWebTaskUrl('coder-daily-links', `&topicId=${selectedTopic.id}`))
         .then(linkResponse => linkResponse.json())
         .then(links => {
             dispatch(receiveLinks(links));
@@ -158,7 +163,7 @@ export function voteLink({ link, increment }) {
 export function add({ url, description }) {
     return (dispatch, getState) => {
         const selectedTopic = getState().main.selectedTopic;
-        fetch(`http://localhost:3000/topics/${selectedTopic.id}/links`, {
+        fetch(buildWebTaskUrl('coder-daily-links'), {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -183,7 +188,7 @@ export function fetchTopics() {
     return (dispatch) => {
         dispatch(requestTopics());
 
-        fetch('http://localhost:3000/topics')
+        fetch(buildWebTaskUrl('coder-daily-topics'))
         .then(response => response.json())
         .then(topics => {
             dispatch(receiveTopics(topics));
