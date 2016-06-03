@@ -47,6 +47,7 @@ function receiveLinks({ state, action: { links } }) {
     const mappedLinks = mapFromMongoArray(links);
     const stateWithLinks = Object.assign({}, state, {
         links: mappedLinks,
+        loadingLinks: false,
     });
 
     return stateWithLinks;
