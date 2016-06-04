@@ -38,9 +38,28 @@ function receiveTopics({ state, action: { topics } }) {
     return setSelectedTopic({ state: stateWithTopics });
 }
 
+function mapLinks({ state, links }) {
+    if (!state.profile) {
+        return links;
+    }
+
+    return links.map(l => {
+        console.log(state.profile);
+        if (l.voters.indexOf(state.profile.user_id) > -1) {
+            return {
+                ...l,
+                votingDisabled: true,
+            };
+        }
+        return l;
+    });
+}
+
 function receiveLinks({ state, action: { links } }) {
+    const mappedLinks = mapLinks({ state, links });
+
     const stateWithLinks = Object.assign({}, state, {
-        links,
+        links: mappedLinks,
         loadingLinks: false,
     });
 
@@ -53,6 +72,20 @@ function loadTopic({ state, action: { selectedTopicName } }) {
     });
 
     return setSelectedTopic({ state: stateWithTopicName });
+}
+
+function voteLink({ state, action: { link, increment } }) {
+    const linkIndex = state.links.indexOf(link);
+    return Object.assign({}, state, {
+        links: [
+            ...state.links.slice(0, linkIndex),
+            Object.assign({}, link, {
+                voteCount: link.voteCount + increment,
+                votingDisabled: true,
+            }),
+            ...state.links.slice(linkIndex + 1)
+        ],
+    });
 }
 
 function mainReducer(state = defaultState, action) {
@@ -69,16 +102,7 @@ function mainReducer(state = defaultState, action) {
         return loadTopic({ state, action });
     // do similar to load topic
     case VOTE_LINK:
-        const linkIndex = state.links.indexOf(action.link);
-        return Object.assign({}, state, {
-            links: [
-                ...state.links.slice(0, linkIndex),
-                Object.assign({}, state.links[linkIndex], {
-                    voteCount: state.links[linkIndex].voteCount + action.increment,
-                }),
-                ...state.links.slice(linkIndex + 1)
-            ],
-        });
+        return voteLink({ state, action });
     case STORE_AUTH_INFO:
         return Object.assign({}, state, {
             idToken: action.idToken,

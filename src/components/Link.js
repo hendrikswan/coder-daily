@@ -3,6 +3,71 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import Card from 'material-ui/lib/card/card';
 import UpArrow from 'material-ui/lib/svg-icons/hardware/keyboard-arrow-up';
 import DownArrow from 'material-ui/lib/svg-icons/hardware/keyboard-arrow-down';
+import { grey400 } from 'material-ui/lib/styles/colors';
+
+function getUpButon({ link, onVoteUp }) {
+    const upLink = link.votingDisabled
+        ? (
+            <UpArrow
+                style={{
+                    width: 50,
+                    height: 50,
+                }}
+                color={grey400}
+            />
+        )
+        : (
+            <a
+                href="#"
+                onClick={
+                    (e) => {
+                        e.preventDefault();
+                        onVoteUp(link);
+                    }
+            }>
+                <UpArrow
+                    style={{
+                        width: 50,
+                        height: 50,
+                    }}
+                />
+            </a>
+        );
+
+    return upLink;
+}
+
+function getDownButton({ link, onVoteDown }) {
+    const downLink = link.votingDisabled
+        ? (
+            <DownArrow
+                style={{
+                    width: 50,
+                    height: 50,
+                }}
+                color={grey400}
+            />
+        )
+        : (
+            <a
+                href="#"
+                onClick={
+                    (e) => {
+                        e.preventDefault();
+                        onVoteDown(link);
+                    }
+            }>
+                <DownArrow
+                    style={{
+                        width: 50,
+                        height: 50,
+                    }}
+                />
+            </a>
+        );
+
+    return downLink;
+}
 
 
 const Link = ({ link, onVoteUp, onVoteDown }) => {
@@ -25,21 +90,7 @@ const Link = ({ link, onVoteUp, onVoteDown }) => {
                         flexDirection: 'column',
                     }}
                 >
-                    <a
-                        href="#"
-                        onClick={
-                            (e) => {
-                                e.preventDefault();
-                                onVoteUp(link);
-                            }
-                    }>
-                        <UpArrow
-                            style={{
-                                width: 50,
-                                height: 50,
-                            }}
-                        />
-                    </a>
+                    {getUpButon({ link, onVoteUp })}
 
                     <div
                         style={{
@@ -50,21 +101,7 @@ const Link = ({ link, onVoteUp, onVoteDown }) => {
                     {link.voteCount}
                     </div>
 
-                    <a
-                        href="#"
-                        onClick={
-                            (e) => {
-                                e.preventDefault();
-                                onVoteDown(link);
-                            }
-                    }>
-                        <DownArrow
-                            style={{
-                                width: 50,
-                                height: 50,
-                            }}
-                        />
-                    </a>
+                    {getDownButton({ link, onVoteDown })}
                 </div>
                 <ListItem
                     primaryText={link.url}
@@ -79,6 +116,7 @@ Link.propTypes = {
     link: React.PropTypes.shape({
         url: React.PropTypes.string.isRequired,
         description: React.PropTypes.string.isRequired,
+        votingDisabled: React.PropTypes.boolean,
     }),
     onVoteUp: React.PropTypes.func.isRequired,
     onVoteDown: React.PropTypes.func.isRequired,

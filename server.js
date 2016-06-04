@@ -127,6 +127,7 @@ function setupServer() {
 
     app.post('/links/:id/vote', jwtCheck, (req, res) => {
         // setTimeout(() => {
+        console.log(req.user);
         const link = db('links').find({ id: req.params.id });
         if (link.voters.indexOf(req.user.sub) > -1) {
             return res.send(403);

@@ -44,41 +44,6 @@ export function startAdd() {
 }
 
 
-export const STORE_AUTH_INFO = 'STORE_AUTH_INFO';
-
-export function checkAuth() {
-    return (dispatch, getState) => {
-
-        const idToken = auth.getIdToken();
-        const profile = getState().main.profile;
-
-
-        if (idToken && profile) {
-            return dispatch({
-                type: STORE_AUTH_INFO,
-                idToken,
-                profile,
-            });
-        }
-
-
-        if (idToken && !getState().main.profile) {
-            return auth.getProfile({ idToken })
-                .then((loadedProfile) => {
-                    if (loadedProfile) {
-                        dispatch({
-                            type: STORE_AUTH_INFO,
-                            idToken,
-                            profile: loadedProfile,
-                        });
-                    }
-                });
-        }
-
-        return null;
-    };
-}
-
 export function logOut() {
     return () => {
         auth.logOut();
@@ -133,6 +98,7 @@ export function voteLink({ link, increment }) {
             link,
             increment,
         });
+
         fetch(`http://localhost:3000/links/${link.id}/vote`, {
             method: 'POST',
             headers: {
@@ -144,6 +110,8 @@ export function voteLink({ link, increment }) {
                 increment,
             }),
         });
+
+        // fetch links + error handling
     };
 }
 
@@ -202,6 +170,42 @@ export function loadTopic({ selectedTopicName }) {
         } else {
             dispatch(fetchLinks());
         }
+    };
+}
+
+
+export const STORE_AUTH_INFO = 'STORE_AUTH_INFO';
+export function checkAuth() {
+    return (dispatch, getState) => {
+        const idToken = auth.getIdToken();
+        const profile = getState().main.profile;
+
+
+        if (idToken && profile) {
+            return dispatch({
+                type: STORE_AUTH_INFO,
+                idToken,
+                profile,
+            });
+        }
+
+
+        if (idToken && !getState().main.profile) {
+            return auth.getProfile({ idToken })
+                .then((loadedProfile) => {
+                    if (loadedProfile) {
+                        dispatch({
+                            type: STORE_AUTH_INFO,
+                            idToken,
+                            profile: loadedProfile,
+                        });
+
+                        dispatch(fetchLinks());
+                    }
+                });
+        }
+
+        return null;
     };
 }
 
