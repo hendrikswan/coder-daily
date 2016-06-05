@@ -36,13 +36,6 @@ function receiveTopics(topics) {
     };
 }
 
-export function startAdd() {
-    return (dispatch, getState) => {
-        const selectedTopic = getState().main.selectedTopic;
-        dispatch(push(`/list/${selectedTopic.name}/add`));
-    };
-}
-
 
 export function logOut() {
     return () => {
@@ -55,6 +48,19 @@ export function showLock() {
         auth.showLock();
     };
 }
+
+export function startAdd() {
+    return (dispatch, getState) => {
+        if (!getState().main.profile) {
+            dispatch(showLock());
+            return;
+        }
+
+        const selectedTopic = getState().main.selectedTopic;
+        dispatch(push(`/list/${selectedTopic.name}/add`));
+    };
+}
+
 
 export const REQUEST_ADD = 'REQUEST_ADD';
 export function requestAdd() {
