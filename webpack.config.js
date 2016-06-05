@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-    // Source maps support (or 'inline-source-map' also works)
     devtool: 'source-map',
     entry: {
         main: [
@@ -19,10 +18,6 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
-        new webpack.ProvidePlugin({
-            fetch:
-            'imports?this=>global!exports?global.fetch!whatwg-fetch',
-        }),
     ],
 
     module: {
@@ -32,9 +27,6 @@ module.exports = {
                 loaders: ['react-hot', 'babel'],
                 include: path.join(__dirname, 'src'),
                 exclude: /node_modules/,
-                // query: {
-                //     presets: ['es2015', 'react', 'stage-0'],
-                // },
             },
         ],
     },

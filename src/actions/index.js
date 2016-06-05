@@ -1,5 +1,6 @@
 import { push, goBack } from 'react-router-redux';
 import auth from '../auth';
+import fetch from 'isomorphic-fetch';
 
 export function cancelAdd() {
     return (dispatch) => dispatch(goBack());
