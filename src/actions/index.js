@@ -1,6 +1,7 @@
 import { push, goBack } from 'react-router-redux';
 import auth from '../auth';
 import fetch from 'isomorphic-fetch';
+import { serverURL } from 'config';
 
 export function cancelAdd() {
     return (dispatch) => dispatch(goBack());
@@ -82,7 +83,7 @@ export function fetchLinks() {
     return (dispatch, getState) => {
         dispatch(requestLinks());
         const selectedTopic = getState().main.selectedTopic;
-        fetch(`http://localhost:3000/topics/${selectedTopic.id}/links`)
+        fetch(`${serverURL}/topics/${selectedTopic.id}/links`)
         .then(linkResponse => linkResponse.json())
         .then(links => {
             dispatch(receiveLinks(links));
@@ -111,7 +112,7 @@ export function voteLink({ link, increment }) {
             increment,
         });
 
-        fetch(`http://localhost:3000/links/${link.id}/vote`, {
+        fetch(`${serverURL}/links/${link.id}/vote`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -128,7 +129,7 @@ export function voteLink({ link, increment }) {
 export function add({ url, description }) {
     return (dispatch, getState) => {
         const selectedTopic = getState().main.selectedTopic;
-        fetch(`http://localhost:3000/topics/${selectedTopic.id}/links`, {
+        fetch(`${serverURL}/topics/${selectedTopic.id}/links`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -154,7 +155,7 @@ export function fetchTopics() {
     return (dispatch) => {
         dispatch(requestTopics());
 
-        fetch('http://localhost:3000/topics')
+        fetch(`${serverURL}/topics`)
         .then(response => response.json())
         .then(topics => {
             dispatch(receiveTopics(topics));

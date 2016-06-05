@@ -1,6 +1,9 @@
 const webpack = require('webpack');
 const path = require('path');
 
+
+console.log(process.env.NODE_ENV)
+
 module.exports = {
     devtool: 'source-map',
     entry: {
@@ -19,7 +22,11 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
     ],
-
+    resolve: {
+        alias: {
+            config: path.join(__dirname, 'src', 'config', process.env.NODE_ENV),
+        },
+    },
     module: {
         loaders: [
             {
