@@ -99,6 +99,11 @@ export function selectTopic({ topic }) {
 export const VOTE_LINK = 'VOTE_LINK';
 export function voteLink({ link, increment }) {
     return (dispatch, getState) => {
+        if (!getState().main.profile) {
+            dispatch(showLock());
+            return;
+        }
+
         dispatch({
             type: VOTE_LINK,
             link,
