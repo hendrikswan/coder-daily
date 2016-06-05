@@ -17,7 +17,7 @@ const defaultState = {
         description: '',
     },
     loadingLinks: false,
-    adding: false,
+    initialized: false,
 };
 
 function setSelectedTopic({ state }) {
@@ -33,6 +33,7 @@ function setSelectedTopic({ state }) {
 function receiveTopics({ state, action: { topics } }) {
     const stateWithTopics = Object.assign({}, state, {
         topics,
+        initialized: true,
     });
 
     return setSelectedTopic({ state: stateWithTopics });

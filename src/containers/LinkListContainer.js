@@ -25,12 +25,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-// need render then, and then proxy all props.. bad idea
-// class RoutingAwareListListContainer extends React.Component {
-//
-// }
-
-
 const LinkListContainer = connect(
   mapStateToProps,
   mapDispatchToProps

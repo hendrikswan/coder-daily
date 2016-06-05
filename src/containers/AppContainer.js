@@ -1,38 +1,22 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { selectTopic, loadTopic, checkAuth, showLock, logOut } from '../actions';
+import { init, checkAuth } from '../actions';
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        topics: state.main.topics,
-        adding: state.main.adding,
+        initialized: state.main.initialized,
         selectedTopicName: ownProps.params.selectedTopicName,
-        profile: state.main.profile,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onTopicSelected: (topic) =>
-            dispatch(selectTopic(topic)),
-        loadTopic: (selectedTopicName) =>
-            dispatch(loadTopic({ selectedTopicName })),
         checkAuth: () =>
             dispatch(checkAuth()),
-        showLock: () =>
-            dispatch(showLock()),
-        logOut: () =>
-            dispatch(logOut()),
+        init: () =>
+            dispatch(init()),
     };
 };
-
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         onTodoClick: (id) => {
-//             dispatch(toggleTodo(id));
-//         }
-//     };
-// };
 
 const AppContainer = connect(
   mapStateToProps,

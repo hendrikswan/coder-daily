@@ -18,6 +18,24 @@ class Navigation extends React.Component {
 
     toggle = () => this.setState({ open: !this.state.open });
 
+    loadData(props) {
+        // this.selectedTop
+        if (props.selectedTopicName || props.topics.length === 0) {
+            this.props.loadTopic(props.selectedTopicName);
+        }
+    }
+
+    componentWillMount() {
+        this.loadData(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.selectedTopicName !== this.props.selectedTopicName) {
+            // debugger;
+            this.loadData(nextProps);
+        }
+    }
+
     render() {
         const topicNodes = this.props.topics.map(topic => {
             return (
@@ -93,6 +111,9 @@ Navigation.propTypes = {
     }),
     showLock: React.PropTypes.func.isRequired,
     logOut: React.PropTypes.func.isRequired,
+    onTopicSelected: React.PropTypes.func.isRequired,
+    selectedTopicName: React.PropTypes.string,
+    loadTopic: React.PropTypes.func.isRequired,
 };
 
 export default Navigation;

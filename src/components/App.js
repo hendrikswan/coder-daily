@@ -1,10 +1,10 @@
 import React from 'react';
-import Navigation from './Navigation';
+import Navigation from '../containers/NavigationContainer';
 import Loader from './Loader';
 
 class App extends React.Component {
     render() {
-        if (!this.props.topics || this.props.topics.length === 0) {
+        if (!this.props.initialized) {
             return (
                 <Loader />
             );
@@ -13,11 +13,7 @@ class App extends React.Component {
         return (
             <div>
                 <Navigation
-                    topics={this.props.topics}
-                    onTopicSelected={this.props.onTopicSelected}
-                    showLock={this.props.showLock}
-                    profile={this.props.profile}
-                    logOut={this.props.logOut}
+                    selectedTopicName={this.props.selectedTopicName}
                 />
 
                 {this.props.children}
@@ -25,48 +21,21 @@ class App extends React.Component {
         );
     }
 
-    loadData(props) {
-        // this.selectedTop
-        if (props.selectedTopicName || props.topics.length === 0) {
-            this.props.loadTopic(props.selectedTopicName);
-        }
-    }
-
     componentWillMount() {
-        this.loadData(this.props);
         this.props.checkAuth();
-    }
-
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.selectedTopicName !== this.props.selectedTopicName) {
-            // debugger;
-            this.loadData(nextProps);
+        if (!this.props.initialized) {
+            this.props.init();
         }
     }
 }
 
 
 App.propTypes = {
-    topics: React.PropTypes.arrayOf(
-        React.PropTypes.shape({
-            name: React.PropTypes.string.isRequired,
-            description: React.PropTypes.string.isRequired,
-            id: React.PropTypes.string.isRequired,
-        })
-    ),
-    adding: React.PropTypes.bool.isRequired,
-    onTopicSelected: React.PropTypes.func.isRequired, // rename
     checkAuth: React.PropTypes.func.isRequired,
-    showLock: React.PropTypes.func.isRequired,
-    selectedTopicName: React.PropTypes.string,
-    loadTopic: React.PropTypes.func.isRequired,
     children: React.PropTypes.element,
-    idToken: React.PropTypes.string,
-    profile: React.PropTypes.shape({
-        name: React.PropTypes.string.isRequired,
-    }),
-    logOut: React.PropTypes.func.isRequired,
+    initialized: React.PropTypes.bool.isRequired,
+    init: React.PropTypes.func.isRequired,
+    selectedTopicName: React.PropTypes.string,
 };
 
 export default App;
