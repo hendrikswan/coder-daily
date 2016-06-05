@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
-import AppBar from 'material-ui/lib/app-bar';
-import LeftNav from 'material-ui/lib/left-nav';
-import MenuItem from 'material-ui/lib/menus/menu-item';
-import List from 'material-ui/lib/lists/list';
-import FlatButton from 'material-ui/lib/flat-button';
-import Avatar from 'material-ui/lib/Avatar';
+import AppBar from 'material-ui/AppBar';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import List from 'material-ui/List/List';
+import FlatButton from 'material-ui/FlatButton';
+import Avatar from 'material-ui/Avatar';
 
 
 class Navigation extends React.Component {
@@ -84,7 +84,7 @@ class Navigation extends React.Component {
                 >
                 </AppBar>
 
-                <LeftNav open={this.state.open}
+                <Drawer open={this.state.open}
                     docked={false}
                     onRequestChange={open => this.setState({ open })}
                     onItemTouchTap={item => console.log(item)}
@@ -92,7 +92,7 @@ class Navigation extends React.Component {
                     <List>
                         {topicNodes}
                     </List>
-                </LeftNav>
+                </Drawer>
             </div>
         );
     }

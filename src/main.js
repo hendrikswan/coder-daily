@@ -8,6 +8,8 @@ import routes from './routes';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 import DevTools from './containers/DevTools';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 const history = syncHistoryWithStore(browserHistory, store);
 // Needed for onTouchTap
@@ -28,10 +30,12 @@ ReactDom.render((
     //     </Route>
     // </Router>
 
-    <Provider store={store}>
-        <div>
-            <Router history={history} routes={routes} />
+    <MuiThemeProvider muiTheme={getMuiTheme()}>
+        <Provider store={store}>
+            <div>
+                <Router history={history} routes={routes} />
 
-        </div>
-    </Provider>
+            </div>
+        </Provider>
+    </MuiThemeProvider>
 ), document.getElementById('app'));

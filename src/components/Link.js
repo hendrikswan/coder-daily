@@ -1,9 +1,9 @@
 import React from 'react';
-import ListItem from 'material-ui/lib/lists/list-item';
-import Card from 'material-ui/lib/card/card';
-import UpArrow from 'material-ui/lib/svg-icons/hardware/keyboard-arrow-up';
-import DownArrow from 'material-ui/lib/svg-icons/hardware/keyboard-arrow-down';
-import { grey400 } from 'material-ui/lib/styles/colors';
+import ListItem from 'material-ui/List/ListItem';
+import Card from 'material-ui/Card/Card';
+import UpArrow from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
+import DownArrow from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
+import { grey400 } from 'material-ui/styles/colors';
 
 function getUpButon({ link, onVoteUp }) {
     const upLink = link.votingDisabled

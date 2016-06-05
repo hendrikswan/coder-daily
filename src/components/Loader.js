@@ -1,5 +1,5 @@
-import CircularProgress from 'material-ui/lib/circular-progress';
-import Card from 'material-ui/lib/card/card';
+import CircularProgress from 'material-ui/CircularProgress';
+import Card from 'material-ui/Card/Card';
 import React from 'react';
 
 const Loader = () => {

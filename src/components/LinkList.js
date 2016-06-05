@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-import List from 'material-ui/lib/lists/list';
+import List from 'material-ui/List/List';
 import capitalize from 'capitalize';
-import FloatingActionButton from 'material-ui/lib/floating-action-button';
-import ContentAdd from 'material-ui/lib/svg-icons/content/add';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 import Link from './Link';
 import Loader from './Loader';
 

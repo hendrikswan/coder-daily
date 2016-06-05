@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import Card from 'material-ui/lib/card/card';
-import TextField from 'material-ui/lib/text-field';
-import RaisedButton from 'material-ui/lib/raised-button';
+import Card from 'material-ui/Card/Card';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 import store from '../store';
 import {
     cancelAdd,
