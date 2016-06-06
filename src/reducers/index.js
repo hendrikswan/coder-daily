@@ -45,7 +45,6 @@ function mapLinks({ state, links }) {
     }
 
     return links.map(l => {
-        console.log(state.profile);
         if (l.voters.indexOf(state.profile.user_id) > -1) {
             return {
                 ...l,
@@ -84,7 +83,7 @@ function voteLink({ state, action: { link, increment } }) {
                 voteCount: link.voteCount + increment,
                 votingDisabled: true,
             }),
-            ...state.links.slice(linkIndex + 1)
+            ...state.links.slice(linkIndex + 1),
         ],
     });
 }

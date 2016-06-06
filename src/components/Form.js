@@ -25,11 +25,11 @@ class Form extends React.Component {
         let descriptionError = '';
 
         if (!url.match(/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/)) {
-            urlError = "please specify a valid url";
+            urlError = 'please specify a valid url';
         }
 
         if (!description) {
-            descriptionError = "please specify a description for your link";
+            descriptionError = 'please specify a description for your link';
         }
 
         if (urlError || descriptionError) {
@@ -66,14 +66,14 @@ class Form extends React.Component {
                     <div>
                         <TextField
                             hintText="URL"
-                            ref={(i) => this._url = i}
+                            ref={(i) => (this._url = i)}
                             style={inputStyle}
                             errorText={this.state.urlError}
                         /><br/>
 
                         <TextField
                             hintText="Description"
-                            ref={(i) => this._description = i}
+                            ref={(i) => (this._description = i)}
                             style={inputStyle}
                             errorText={this.state.descriptionError}
                         /><br/>

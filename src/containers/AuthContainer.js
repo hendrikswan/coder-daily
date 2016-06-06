@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import Auth from '../components/Auth';
 import { showLock, logOut } from '../actions';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         profile: state.main.profile,
     };

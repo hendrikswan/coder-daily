@@ -6,9 +6,9 @@
     "plugins": [
         "react"
     ],
+    "parser": "babel-eslint",
     "rules": {
         "indent": [1, 4],
-        "no-param-reassign": 0,
         "id-length": 0,
         "max-len": [2, 200, 2, {
              "ignoreUrls": true,
@@ -20,6 +20,7 @@
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true,
+            "experimentalObjectRestSpread": true,
         },
     },
 }

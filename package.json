@@ -5,14 +5,15 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=dev node server"
+    "start": "NODE_ENV=dev node server",
+    "lint": "node_modules/eslint/bin/eslint.js ./src"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "babel-eslint": "^6.0.2",
-    "eslint": "^2.8.0",
-    "eslint-config-airbnb": "6.0.2",
+    "eslint": "^2.11.1",
+    "eslint-config-airbnb": "^6.0.2",
     "react-hot-loader": "^1.3.0",
     "webpack-dev-server": "^1.14.1"
   },

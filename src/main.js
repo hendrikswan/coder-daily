@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import routes from './routes';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { browserHistory } from 'react-router';
-import DevTools from './containers/DevTools';
+// import DevTools from './containers/DevTools';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 

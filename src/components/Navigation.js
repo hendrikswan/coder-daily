@@ -3,8 +3,6 @@ import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import List from 'material-ui/List/List';
-import FlatButton from 'material-ui/FlatButton';
-import Avatar from 'material-ui/Avatar';
 import Auth from '../containers/AuthContainer';
 
 
@@ -75,7 +73,6 @@ class Navigation extends React.Component {
                 <Drawer open={this.state.open}
                     docked={false}
                     onRequestChange={open => this.setState({ open })}
-                    onItemTouchTap={item => console.log(item)}
                 >
                     <List>
                         {topicNodes}
