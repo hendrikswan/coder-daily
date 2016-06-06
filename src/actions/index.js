@@ -146,6 +146,8 @@ export function add({ url, description }) {
             if (postResponse.status === 200) {
                 dispatch(fetchLinks());
                 dispatch(receiveAdd());
+
+                dispatch(push(`/list/${selectedTopic.name}`));
             }
         });
     };

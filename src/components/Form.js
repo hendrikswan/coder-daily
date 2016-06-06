@@ -2,12 +2,6 @@ import React, { PropTypes } from 'react';
 import Card from 'material-ui/Card/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import store from '../store';
-import {
-    cancelAdd,
-    add,
-} from '../actions';
-
 
 const inputStyle = {
     width: '100%',
@@ -47,16 +41,11 @@ class Form extends React.Component {
             return;
         }
 
-        store.dispatch(add({
+        this.props.add({
             url,
             description,
-        }));
-
-        this.context.router.goBack();
-    }
-
-    onCancel = ({ url, description }) => {
-        store.dispatch(cancelAdd());
+        });
+        // this.context.router.goBack();
     }
 
     render() {
@@ -100,7 +89,7 @@ class Form extends React.Component {
                             label="Cancel"
                             secondary={true}
                             style={inputStyle}
-                            onMouseUp={this.onCancel}
+                            onMouseUp={this.props.cancelAdd}
                         />
                     </div>
                 </div>
@@ -110,8 +99,9 @@ class Form extends React.Component {
     }
 }
 
-Form.contextTypes = {
-  router: React.PropTypes.object,
+Form.propTypes = {
+    cancelAdd: PropTypes.func.isRequired,
+    add: PropTypes.func.isRequired,
 };
 
 
