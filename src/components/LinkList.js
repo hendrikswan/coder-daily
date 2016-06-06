@@ -51,6 +51,7 @@ const LinkList = ({ links, selectedTopic, onVoteUp, onVoteDown, onAdd, loadingLi
                 <FloatingActionButton
                     style={{ position: 'fixed', right: 30, top: 110 }}
                     onMouseUp={onAdd}
+                    secondary={true}
                 >
                     <ContentAdd />
                 </FloatingActionButton>
