@@ -3,40 +3,38 @@ import FlatButton from 'material-ui/FlatButton';
 import Avatar from 'material-ui/Avatar';
 
 
-class Auth extends React.Component {
-    render() {
-        const buttonStyle = {
-            color: '#fff',
-        };
+const Auth = ({ profile, showLock, logOut }) => {
+    const buttonStyle = {
+        color: '#fff',
+    };
 
-        let authButton = (
+    let authButton = (
+        <FlatButton
+            label="Log in"
+            onMouseUp={showLock}
+            style={buttonStyle}
+        />
+    );
+
+    if (profile) {
+        authButton = (
             <FlatButton
-                label="Log in"
-                onMouseUp={this.props.showLock}
+                icon={(
+                    <Avatar
+                        src={profile.picture}
+                        size={30}
+                    />
+                )}
+                label="Log out"
+                primary={true}
+                onMouseUp={logOut}
                 style={buttonStyle}
             />
         );
-
-        if (this.props.profile) {
-            authButton = (
-                <FlatButton
-                    icon={(
-                        <Avatar
-                            src={this.props.profile.picture}
-                            size={30}
-                        />
-                    )}
-                    label="Log out"
-                    primary={true}
-                    onMouseUp={this.props.logOut}
-                    style={buttonStyle}
-                />
-            );
-        }
-
-        return authButton;
     }
-}
+
+    return authButton;
+};
 
 Auth.propTypes = {
     profile: PropTypes.shape({
