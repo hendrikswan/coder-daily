@@ -5,6 +5,7 @@ import MenuItem from 'material-ui/MenuItem';
 import List from 'material-ui/List/List';
 import FlatButton from 'material-ui/FlatButton';
 import Avatar from 'material-ui/Avatar';
+import Auth from '../containers/AuthContainer';
 
 
 class Navigation extends React.Component {
@@ -53,34 +54,21 @@ class Navigation extends React.Component {
             );
         });
 
-        let authButton = (
-            <FlatButton
-                label="Log in"
-                primary={true}
-                onMouseUp={this.props.showLock}
-            />
-        );
-
-        if (this.props.profile) {
-            authButton = (
-                <FlatButton
-                    icon={<Avatar src={this.props.profile.picture} />}
-                    label="Log out"
-                    primary={true}
-                    onMouseUp={this.props.logOut}
-                    // linkButton={true}
-                    // href="https://hendrikswan.eu.auth0.com/v2/logout?returnTo=http://localhost:8080"
-                />
-            );
-        }
-
         return (
             <div>
                 <AppBar
                     title="Coder daily"
                     onTitleTouchTap={this.toggle}
                     onLeftIconButtonTouchTap={this.toggle}
-                    iconElementRight={authButton}
+                    iconElementRight={(
+                        <div
+                            style={{
+                                marginTop: 5,
+                            }}
+                        >
+                            <Auth />
+                        </div>
+                    )}
                 >
                 </AppBar>
 
@@ -100,20 +88,15 @@ class Navigation extends React.Component {
 
 Navigation.propTypes = {
     topics: PropTypes.arrayOf(
-        React.PropTypes.shape({
-            name: React.PropTypes.string.isRequired,
-            description: React.PropTypes.string.isRequired,
-            id: React.PropTypes.string.isRequired,
+        PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            description: PropTypes.string.isRequired,
+            id: PropTypes.string.isRequired,
         })
     ).isRequired,
-    profile: React.PropTypes.shape({
-        name: React.PropTypes.string.isRequired,
-    }),
-    showLock: React.PropTypes.func.isRequired,
-    logOut: React.PropTypes.func.isRequired,
-    onTopicSelected: React.PropTypes.func.isRequired,
-    selectedTopicName: React.PropTypes.string,
-    loadTopic: React.PropTypes.func.isRequired,
+    onTopicSelected: PropTypes.func.isRequired,
+    selectedTopicName: PropTypes.string,
+    loadTopic: PropTypes.func.isRequired,
 };
 
 export default Navigation;
