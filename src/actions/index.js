@@ -14,7 +14,6 @@ function requestLinks() {
     };
 }
 
-// use argument destructuring...
 export const RECEIVE_LINKS = 'RECEIVE_LINKS';
 function receiveLinks(links) {
     return {
