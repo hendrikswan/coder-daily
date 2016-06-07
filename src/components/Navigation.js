@@ -1,9 +1,10 @@
 import React from 'react';
 
-const Navigation = ({ topics }) => {
+const Navigation = ({ topics, onTopicSelected }) => {
     const topicNodes = topics.map(topic => (
         <li
             key={topic.id}
+            onClick={() => onTopicSelected({ topic })}
         >
             {topic.name}
         </li>
@@ -22,6 +23,7 @@ Navigation.propTypes = {
             name: React.PropTypes.string.isRequired,
         }),
     ),
+    onTopicSelected: React.PropTypes.func.isRequired,
 };
 
 export default Navigation;
