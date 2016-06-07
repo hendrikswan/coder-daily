@@ -30,26 +30,41 @@ let selectedTopic;
 let selectedTopicLinks;
 
 function onTopicSelected({ topic }) {
-    debugger;
     selectedTopic = topic;
     selectedTopicLinks = links.filter(l => l.topicId === topic.id);
 }
 
 onTopicSelected({ topic: topics[0] });
 
-const App = () => {
-    return (
-        <div>
-            <Navigation
-                topics={topics}
-                onTopicSelected={onTopicSelected}
-            />
-            <LinkList
-                links={selectedTopicLinks}
-                selectedTopic={selectedTopic}
-            />
-        </div>
-    );
-};
+class App extends React.Component {
+    state = {
+        topics,
+        selectedTopic,
+        links: selectedTopicLinks,
+    };
+
+    handleTopicSelected = ({ topic }) => {
+        onTopicSelected({ topic });
+        this.setState({
+            selectedTopic,
+            links: selectedTopicLinks,
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <Navigation
+                    topics={this.state.topics}
+                    onTopicSelected={this.handleTopicSelected}
+                />
+                <LinkList
+                    links={this.state.links}
+                    selectedTopic={this.state.selectedTopic}
+                />
+            </div>
+        );
+    }
+}
 
 export default App;
