@@ -15,11 +15,17 @@ const App = () => {
         voteCount: 3,
     }];
 
+    const selectedTopic = {
+        name: 'Various links - hardcoded',
+        description: 'A placeholder topic - hardcoded',
+    };
+
     return (
         <div>
             <Navigation />
             <LinkList
                 links={links}
+                selectedTopic={selectedTopic}
             />
         </div>
     );
