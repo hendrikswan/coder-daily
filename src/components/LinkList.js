@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from './Link';
+import List from 'material-ui/List/List';
 
 const LinkList = ({ links, selectedTopic }) => {
     const linkNodes = links.map(link => (
@@ -11,9 +12,39 @@ const LinkList = ({ links, selectedTopic }) => {
 
     return (
         <div>
-            <h4>{selectedTopic.name}</h4>
-            <p>{selectedTopic.description}</p>
-            {linkNodes}
+            <div
+                style={{
+                    // paddingTop: 10,
+                    paddingLeft: 15,
+                    fontFamily: 'Roboto',
+                }}
+            >
+                <h1
+                    style={{
+                        color: '#222',
+                        fontWeight: '100',
+                    }}
+                >{selectedTopic.name}</h1>
+
+                <h3
+                    style={{
+                        color: '#666',
+                        marginTop: -20,
+                        fontWeight: '100',
+                    }}
+                >
+                    {selectedTopic.description}
+                </h3>
+            </div>
+
+            <List
+                style={{
+                    marginTop: 5,
+                    backgroundColor: 'transparent',
+                }}
+            >
+                {linkNodes}
+            </List>
         </div>
     );
 };
