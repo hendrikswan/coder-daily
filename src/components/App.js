@@ -30,7 +30,6 @@ let selectedTopic;
 let selectedTopicLinks;
 
 function onTopicSelected({ topic }) {
-    debugger;
     selectedTopic = topic;
     selectedTopicLinks = links.filter(l => l.topicId === topic.id);
 }
