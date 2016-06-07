@@ -26,7 +26,7 @@ const Link = ({ link }) => {
 
                     <div
                         style={{
-                            fontSize: 20,
+                            fontSize: 35,
                             textAlign: 'center',
                         }}
                     >
