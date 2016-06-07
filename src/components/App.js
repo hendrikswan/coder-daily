@@ -1,8 +1,13 @@
 import React from 'react';
+import Navigation from './Navigation';
+import LinkList from './LinkList';
 
 const App = () => {
     return (
-        <div>this is the app</div>
+        <div>
+            <Navigation />
+            <LinkList />
+        </div>
     );
 };
 
