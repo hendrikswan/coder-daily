@@ -20,9 +20,21 @@ const App = () => {
         description: 'A placeholder topic - hardcoded',
     };
 
+    const topics = [{
+        name: 'Apps',
+        description: 'Links to interesting apps',
+        id: 1,
+    }, {
+        name: 'Libraries',
+        description: 'Links to interesting libraries',
+        id: 2,
+    }];
+
     return (
         <div>
-            <Navigation />
+            <Navigation
+                topics={topics}
+            />
             <LinkList
                 links={links}
                 selectedTopic={selectedTopic}
