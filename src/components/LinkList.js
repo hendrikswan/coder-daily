@@ -1,19 +1,7 @@
 import React from 'react';
 import Link from './Link';
 
-const LinkList = () => {
-    const links = [{
-        id: 1,
-        url: 'http://google.co.za',
-        description: 'the good \'ol search engine',
-        voteCount: 10,
-    }, {
-        id: 2,
-        url: 'http://tagtree.io',
-        description: 'my old site',
-        voteCount: 3,
-    }];
-
+const LinkList = ({ links }) => {
     const linkNodes = links.map(link => (
         <Link
             key={link.id}
@@ -28,6 +16,16 @@ const LinkList = () => {
             {linkNodes}
         </div>
     );
+};
+
+LinkList.propTypes = {
+    links: React.PropTypes.arrayOf(
+        React.PropTypes.shape({
+            url: React.PropTypes.string.isRequired,
+            description: React.PropTypes.string.isRequired,
+            voteCount: React.PropTypes.number.isRequired,
+        }).isRequired
+    ).isRequired,
 };
 
 export default LinkList;
