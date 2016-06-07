@@ -1,10 +1,7 @@
 import ReactDom from 'react-dom';
 import React from 'react';
+import App from './components/App';
 
 ReactDom.render((
-    <h1
-        style={{
-            color: 'blue',
-        }}
-    >hello there</h1>
+    <App />
 ), document.getElementById('app'));
