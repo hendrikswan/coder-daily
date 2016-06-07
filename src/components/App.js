@@ -51,6 +51,20 @@ class App extends React.Component {
         });
     }
 
+    onVoteUp = ({ link }) => {
+        link.voteCount += 1; // eslint-disable-line
+        this.setState({
+            selectedTopicLinks,
+        });
+    }
+
+    onVoteDown = ({ link }) => {
+        link.voteCount -= 1; // eslint-disable-line
+        this.setState({
+            selectedTopicLinks,
+        });
+    }
+
     render() {
         return (
             <div>
@@ -61,6 +75,8 @@ class App extends React.Component {
                 <LinkList
                     links={this.state.links}
                     selectedTopic={this.state.selectedTopic}
+                    onVoteUp={this.onVoteUp}
+                    onVoteDown={this.onVoteDown}
                 />
             </div>
         );

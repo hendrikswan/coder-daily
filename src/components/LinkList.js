@@ -2,11 +2,13 @@ import React from 'react';
 import Link from './Link';
 import List from 'material-ui/List/List';
 
-const LinkList = ({ links, selectedTopic }) => {
+const LinkList = ({ links, selectedTopic, onVoteUp, onVoteDown }) => {
     const linkNodes = links.map(link => (
         <Link
             key={link.id}
             link={link}
+            onVoteUp={onVoteUp}
+            onVoteDown={onVoteDown}
         />
     ));
 
@@ -61,6 +63,8 @@ LinkList.propTypes = {
         name: React.PropTypes.string.isRequired,
         description: React.PropTypes.string.isRequired,
     }),
+    onVoteUp: React.PropTypes.func.isRequired,
+    onVoteDown: React.PropTypes.func.isRequired,
 };
 
 export default LinkList;
