@@ -10,12 +10,14 @@ const LinkList = () => {
                 link={{
                     url: 'http://google.co.za',
                     description: 'the good \'ol search engine',
+                    voteCount: 10,
                 }}
             />
             <Link
                 link={{
                     url: 'http://tagtree.io',
                     description: 'my old site',
+                    voteCount: 3,
                 }}
             />
         </div>
