@@ -14,6 +14,45 @@ function requestTopics() {
     };
 }
 
+
+export const RECEIVE_LINKS = 'RECEIVE_LINKS';
+function receiveLinks({ links }) {
+    return {
+        type: RECEIVE_LINKS,
+        links,
+    };
+}
+
+
+export const REQUEST_LINKS = 'REQUEST_LINKS';
+function requestLinks() {
+    return {
+        type: REQUEST_LINKS,
+    };
+}
+
+
+export const SELECT_TOPIC = 'SELECT_TOPIC';
+export function selectTopic({ topic }) {
+    return {
+        type: SELECT_TOPIC,
+        topic,
+    };
+}
+
+export function fetchLinks() {
+    return (dispatch, getState) => {
+        dispatch(requestLinks());
+        const selectedTopic = getState().main.selectedTopic;
+        fetch(`http://localhost:3000/topics/${selectedTopic.id}/links`)
+        .then(linkResponse => linkResponse.json())
+        .then(links => {
+            dispatch(receiveLinks({ links }));
+        });
+    };
+}
+
+
 export function fetchTopics() {
     return (dispatch) => {
         dispatch(requestTopics());
@@ -22,6 +61,8 @@ export function fetchTopics() {
         .then(response => response.json())
         .then(topics => {
             dispatch(receiveTopics({ topics }));
+            dispatch(selectTopic({ topic: topics[0] }));
+            dispatch(fetchLinks());
         });
     };
 }
