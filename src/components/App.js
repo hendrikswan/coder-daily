@@ -1,60 +1,55 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Navigation from './Navigation';
 import LinkList from './LinkList';
-import store from '../store';
-import { fetchTopics } from '../actions';
+
 
 class App extends React.Component {
     componentWillMount() {
-        this.state = store.getState();
-
-        store.subscribe(() => {
-            this.setState(store.getState()); // eslint-disable-line react/no-set-state
-        });
-
-        if (!this.state.main.initialized) {
-            store.dispatch(fetchTopics());
+        if (!this.props.initialized) {
+            this.props.fetchTopics();
         }
-    }
-
-    handleTopicSelected = ({ topic }) => {
-        //onTopicSelected({ topic });
-        // this.setState({
-        //     selectedTopic,
-        //     links: selectedTopicLinks,
-        // });
-    }
-
-    onVoteUp = ({ link }) => {
-        // link.voteCount += 1; // eslint-disable-line
-        // this.setState({
-        //     selectedTopicLinks,
-        // });
-    }
-
-    onVoteDown = ({ link }) => {
-        // link.voteCount -= 1; // eslint-disable-line
-        // this.setState({
-        //     selectedTopicLinks,
-        // });
     }
 
     render() {
         return (
             <div>
                 <Navigation
-                    topics={this.state.main.topics}
-                    onTopicSelected={this.handleTopicSelected}
+                    topics={this.props.topics}
+                    // onTopicSelected={this.handleTopicSelected}
                 />
                 <LinkList
-                    links={this.state.main.links}
-                    selectedTopic={this.state.main.selectedTopic}
-                    onVoteUp={this.onVoteUp}
-                    onVoteDown={this.onVoteDown}
+                    links={this.props.links}
+                    selectedTopic={this.props.selectedTopic}
+                    // onVoteUp={this.onVoteUp}
+                    // onVoteDown={this.onVoteDown}
                 />
             </div>
         );
     }
 }
+
+App.propTypes = {
+    topics: PropTypes.arrayOf(
+        PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            description: PropTypes.string.isRequired,
+            id: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    selectedTopic: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+    }),
+    links: React.PropTypes.arrayOf(
+        React.PropTypes.shape({
+            url: React.PropTypes.string.isRequired,
+            description: React.PropTypes.string.isRequired,
+            voteCount: React.PropTypes.number.isRequired,
+        }).isRequired
+    ).isRequired,
+    initialized: PropTypes.bool.isRequired,
+    fetchTopics: PropTypes.func.isRequired,
+};
 
 export default App;
