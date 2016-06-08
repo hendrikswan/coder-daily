@@ -15,7 +15,7 @@ class App extends React.Component {
             <div>
                 <Navigation
                     topics={this.props.topics}
-                    // onTopicSelected={this.handleTopicSelected}
+                    onTopicSelected={this.props.selectTopic}
                 />
                 <LinkList
                     links={this.props.links}
@@ -50,6 +50,7 @@ App.propTypes = {
     ).isRequired,
     initialized: PropTypes.bool.isRequired,
     fetchTopics: PropTypes.func.isRequired,
+    selectTopic: PropTypes.func.isRequired,
 };
 
 export default App;

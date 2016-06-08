@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { fetchTopics } from '../actions';
+import { fetchTopics, selectTopic } from '../actions';
 
 const mapStateToProps = (state) => {
     const {
@@ -22,6 +22,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchTopics: () =>
             dispatch(fetchTopics()),
+        selectTopic: ({ topic }) =>
+            dispatch(selectTopic({ topic })),
     };
 };
 

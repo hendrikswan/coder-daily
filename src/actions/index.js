@@ -31,15 +31,6 @@ function requestLinks() {
     };
 }
 
-
-export const SELECT_TOPIC = 'SELECT_TOPIC';
-export function selectTopic({ topic }) {
-    return {
-        type: SELECT_TOPIC,
-        topic,
-    };
-}
-
 export function fetchLinks() {
     return (dispatch, getState) => {
         dispatch(requestLinks());
@@ -49,6 +40,18 @@ export function fetchLinks() {
         .then(links => {
             dispatch(receiveLinks({ links }));
         });
+    };
+}
+
+export const SELECT_TOPIC = 'SELECT_TOPIC';
+export function selectTopic({ topic }) {
+    return (dispatch) => {
+        dispatch({
+            type: SELECT_TOPIC,
+            topic,
+        });
+
+        dispatch(fetchLinks());
     };
 }
 
@@ -62,7 +65,6 @@ export function fetchTopics() {
         .then(topics => {
             dispatch(receiveTopics({ topics }));
             dispatch(selectTopic({ topic: topics[0] }));
-            dispatch(fetchLinks());
         });
     };
 }
