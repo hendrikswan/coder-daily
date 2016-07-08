@@ -1,11 +1,19 @@
 import React from 'react';
 import Navigation from './Navigation';
 import LinkList from './LinkList';
+import store from '../store';
+import { fetchTopics } from '../actions';
 
 class App extends React.Component {
     componentWillMount() {
-        if (!this.props.initialized) {
-            this.props.fetchTopics();
+        this.state = store.getState();
+
+        store.subscribe(() => {
+            this.setState(store.getState()); // eslint-disable-line react/no-set-state
+        });
+
+        if (!this.state.main.initialized) {
+            store.dispatch(fetchTopics());
         }
     }
 
@@ -35,12 +43,12 @@ class App extends React.Component {
         return (
             <div>
                 <Navigation
-                    topics={this.props.topics}
+                    topics={this.state.main.topics}
                     onTopicSelected={this.handleTopicSelected}
                 />
                 <LinkList
-                    links={this.props.links}
-                    selectedTopic={this.props.selectedTopic}
+                    links={this.state.main.links}
+                    selectedTopic={this.state.main.selectedTopic}
                     onVoteUp={this.onVoteUp}
                     onVoteDown={this.onVoteDown}
                 />
@@ -48,28 +56,5 @@ class App extends React.Component {
         );
     }
 }
-
-App.propTypes = {
-    topics: React.PropTypes.arrayOf(
-        React.PropTypes.shape({
-            name: React.PropTypes.string.isRequired,
-            description: React.PropTypes.string.isRequired,
-            id: React.PropTypes.number.isRequired,
-        })
-    ).isRequired,
-    links: React.PropTypes.arrayOf(
-        React.PropTypes.shape({
-            url: React.PropTypes.string.isRequired,
-            description: React.PropTypes.string.isRequired,
-            voteCount: React.PropTypes.number.isRequired,
-        }).isRequired
-    ).isRequired,
-    selectedTopic: React.PropTypes.shape({
-        name: React.PropTypes.string.isRequired,
-        description: React.PropTypes.string.isRequired,
-    }),
-    initialized: React.PropTypes.bool.isRequired,
-    fetchTopics: React.PropTypes.func.isRequired,
-};
 
 export default App;
