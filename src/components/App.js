@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Navigation from './Navigation';
+import Navigation from '../containers/NavigationContainer';
 import LinkList from './LinkList';
 
 
@@ -13,10 +13,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <Navigation
-                    topics={this.props.topics}
-                    onTopicSelected={this.props.selectTopic}
-                />
+                <Navigation />
                 <LinkList
                     links={this.props.links}
                     selectedTopic={this.props.selectedTopic}
@@ -29,13 +26,6 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-    topics: PropTypes.arrayOf(
-        PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            description: PropTypes.string.isRequired,
-            id: PropTypes.string.isRequired,
-        })
-    ).isRequired,
     selectedTopic: PropTypes.shape({
         name: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
@@ -50,7 +40,6 @@ App.propTypes = {
     ).isRequired,
     initialized: PropTypes.bool.isRequired,
     fetchTopics: PropTypes.func.isRequired,
-    selectTopic: PropTypes.func.isRequired,
 };
 
 export default App;
