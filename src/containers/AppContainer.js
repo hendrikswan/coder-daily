@@ -3,14 +3,7 @@ import App from '../components/App';
 import { init } from '../actions';
 
 const mapStateToProps = (state) => {
-    const {
-        links,
-        selectedTopic,
-    } = state.main;
-
     return {
-        links,
-        selectedTopic,
     };
 };
 

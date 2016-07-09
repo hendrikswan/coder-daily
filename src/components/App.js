@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import Navigation from '../containers/NavigationContainer';
-import LinkList from './LinkList';
+import LinkList from '../containers/LinkListContainer';
 
 
 class App extends React.Component {
@@ -12,30 +12,13 @@ class App extends React.Component {
         return (
             <div>
                 <Navigation />
-                <LinkList
-                    links={this.props.links}
-                    selectedTopic={this.props.selectedTopic}
-                    // onVoteUp={this.onVoteUp}
-                    // onVoteDown={this.onVoteDown}
-                />
+                <LinkList />
             </div>
         );
     }
 }
 
 App.propTypes = {
-    selectedTopic: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired,
-    }),
-    links: React.PropTypes.arrayOf(
-        React.PropTypes.shape({
-            url: React.PropTypes.string.isRequired,
-            description: React.PropTypes.string.isRequired,
-            voteCount: React.PropTypes.number.isRequired,
-        }).isRequired
-    ).isRequired,
     init: PropTypes.func.isRequired,
 };
 
