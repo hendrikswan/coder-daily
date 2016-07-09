@@ -68,3 +68,11 @@ export function fetchTopics() {
         });
     };
 }
+
+export function init() {
+    return (dispatch, getState) => {
+        if (!getState().main.initialized) {
+            dispatch(fetchTopics());
+        }
+    };
+}

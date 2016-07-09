@@ -5,9 +5,7 @@ import LinkList from './LinkList';
 
 class App extends React.Component {
     componentWillMount() {
-        if (!this.props.initialized) {
-            this.props.fetchTopics();
-        }
+        this.props.init();
     }
 
     render() {
@@ -38,8 +36,7 @@ App.propTypes = {
             voteCount: React.PropTypes.number.isRequired,
         }).isRequired
     ).isRequired,
-    initialized: PropTypes.bool.isRequired,
-    fetchTopics: PropTypes.func.isRequired,
+    init: PropTypes.func.isRequired,
 };
 
 export default App;

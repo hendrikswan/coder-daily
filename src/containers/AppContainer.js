@@ -1,18 +1,14 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { fetchTopics, selectTopic } from '../actions';
+import { init } from '../actions';
 
 const mapStateToProps = (state) => {
     const {
-        initialized,
-        topics,
         links,
         selectedTopic,
     } = state.main;
 
     return {
-        initialized,
-        topics,
         links,
         selectedTopic,
     };
@@ -20,10 +16,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchTopics: () =>
-            dispatch(fetchTopics()),
-        selectTopic: ({ topic }) =>
-            dispatch(selectTopic({ topic })),
+        init: () =>
+            dispatch(init()),
     };
 };
 
