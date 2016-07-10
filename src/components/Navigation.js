@@ -64,7 +64,7 @@ Navigation.propTypes = {
         PropTypes.shape({
             name: PropTypes.string.isRequired,
             description: PropTypes.string.isRequired,
-            id: PropTypes.number.isRequired,
+            id: PropTypes.string.isRequired,
         })
     ).isRequired,
     onTopicSelected: PropTypes.func.isRequired,

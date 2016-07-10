@@ -8,17 +8,8 @@ class Auth extends React.Component {
         open: false,
     };
 
-    handleOpen = () => {
-        this.setState({ open: true });
-    }
-
-    handleClose = () => {
-        this.setState({ open: false });
-    }
-
     login = () => {
         this.props.login({ email: this.emailField.input.value });
-        this.handleClose();
     }
 
     render() {
@@ -26,7 +17,7 @@ class Auth extends React.Component {
             <FlatButton
                 label="Cancel"
                 primary={true}
-                onTouchTap={this.handleClose}
+                onTouchTap={this.props.cancelLogin}
             />,
             <FlatButton
                 label="Login"
@@ -40,7 +31,7 @@ class Auth extends React.Component {
             <div>
                 <FlatButton
                     label="Log in"
-                    onMouseUp={this.handleOpen}
+                    onMouseUp={this.props.startLogin}
                     style={{
                         color: '#fff',
                     }}
@@ -50,7 +41,7 @@ class Auth extends React.Component {
                     title="Dialog With Actions"
                     actions={actions}
                     modal={true}
-                    open={this.state.open}
+                    open={this.props.authenticating}
                 >
                     <TextField
                         hintText="Specify your email"
@@ -81,7 +72,10 @@ class Auth extends React.Component {
 
 Auth.propTypes = {
     login: React.PropTypes.func.isRequired,
-    email: React.PropTypes.string.isRequired,
+    authenticating: React.PropTypes.bool.isRequired,
+    cancelLogin: React.PropTypes.func.isRequired,
+    startLogin: React.PropTypes.func.isRequired,
+    email: React.PropTypes.string,
 };
 
 export default Auth;

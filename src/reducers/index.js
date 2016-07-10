@@ -7,6 +7,8 @@ import {
     START_ADD,
     CANCEL_ADD,
     VOTE_LINK,
+    START_LOGIN,
+    CANCEL_LOGIN,
 } from '../actions';
 
 const defaultState = {
@@ -19,6 +21,7 @@ const defaultState = {
     initialized: false,
     loadingLinks: true,
     adding: false,
+    authenticating: false,
 };
 
 function receiveTopics({ state, action: { topics } }) {
@@ -53,12 +56,23 @@ function startAdd({ state }) {
     });
 }
 
+function startLogin({ state }) {
+    return Object.assign({}, state, {
+        authenticating: true,
+    });
+}
+
+function cancelLogin({ state }) {
+    return Object.assign({}, state, {
+        authenticating: false,
+    });
+}
+
 function cancelAdd({ state }) {
     return Object.assign({}, state, {
         adding: false,
     });
 }
-
 
 function voteLink({ state, action: { link, increment } }) {
     const linkById = state.links.find(l => l.id === link.id);
@@ -87,8 +101,12 @@ function mainReducer(state = defaultState, action) {
         return login({ state, action });
     case START_ADD:
         return startAdd({ state, action });
+    case START_LOGIN:
+        return startLogin({ state, action });
     case CANCEL_ADD:
         return cancelAdd({ state, action });
+    case CANCEL_LOGIN:
+        return cancelLogin({ state, action });
     case VOTE_LINK:
         return voteLink({ state, action });
     default:

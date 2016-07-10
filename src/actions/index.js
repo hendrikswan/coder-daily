@@ -77,6 +77,20 @@ export function init() {
     };
 }
 
+export const START_LOGIN = 'START_LOGIN';
+export function startLogin() {
+    return {
+        type: START_LOGIN,
+    };
+}
+
+export const CANCEL_LOGIN = 'CANCEL_LOGIN';
+export function cancelLogin() {
+    return {
+        type: CANCEL_LOGIN,
+    };
+}
+
 export const LOGIN = 'LOGIN';
 export function login({ email }) {
     return {
@@ -128,6 +142,11 @@ export function add({ url, description }) {
 export const VOTE_LINK = 'VOTE_LINK';
 export function voteLink({ link, increment }) {
     return (dispatch, getState) => {
+        if (!getState().main.email) {
+            dispatch(startLogin());
+            return;
+        }
+
         fetch(`http://localhost:3000/links/${link.id}/vote`, {
             method: 'POST',
             headers: {
