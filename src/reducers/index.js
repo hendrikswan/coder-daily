@@ -33,7 +33,12 @@ function receiveTopics({ state, action: { topics } }) {
 
 function receiveLinks({ state, action: { links } }) {
     return Object.assign({}, state, {
-        links,
+        links: links.map((l) => {
+            const votingEnabled = l.voters.indexOf(state.email) < 0;
+            return Object.assign({}, l, {
+                votingEnabled,
+            });
+        }),
         loadingLinks: false,
     });
 }
@@ -83,6 +88,7 @@ function voteLink({ state, action: { link, increment } }) {
             ...state.links.slice(0, linkIndex),
             Object.assign({}, link, {
                 voteCount: link.voteCount + increment,
+                votingEnabled: false,
             }),
             ...state.links.slice(linkIndex + 1),
         ],

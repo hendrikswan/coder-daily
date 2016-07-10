@@ -5,6 +5,36 @@ import UpArrow from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import DownArrow from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import { grey400 } from 'material-ui/styles/colors';
 
+function VotingButton({ icon, handler, link, votingEnabled }) {
+    const Icon = icon;
+    if (!link.votingEnabled) {
+        return (<Icon
+            style={{
+                width: 50,
+                height: 50,
+            }}
+            color={grey400}
+        />);
+    }
+
+    return (
+        <a
+            href="#"
+            onClick={(e) => {
+                e.preventDefault();
+                handler({ link });
+            }}
+        >
+            <Icon
+                style={{
+                    width: 50,
+                    height: 50,
+                }}
+            />
+        </a>
+    );
+}
+
 const Link = ({ link, onVoteUp, onVoteDown }) => {
     return (
         <Card
@@ -27,20 +57,11 @@ const Link = ({ link, onVoteUp, onVoteDown }) => {
                     }}
                 >
 
-                    <a
-                        href="#"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            onVoteUp({ link });
-                        }}
-                    >
-                        <UpArrow
-                            style={{
-                                width: 50,
-                                height: 50,
-                            }}
-                        />
-                    </a>
+                    <VotingButton
+                        icon={UpArrow}
+                        handler={onVoteUp}
+                        link={link}
+                    />
 
                     <div
                         style={{
@@ -51,20 +72,11 @@ const Link = ({ link, onVoteUp, onVoteDown }) => {
                     {link.voteCount}
                     </div>
 
-                    <a
-                        href="#"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            onVoteDown({ link });
-                        }}
-                    >
-                        <DownArrow
-                            style={{
-                                width: 50,
-                                height: 50,
-                            }}
-                        />
-                    </a>
+                    <VotingButton
+                        icon={DownArrow}
+                        handler={onVoteDown}
+                        link={link}
+                    />
 
                 </div>
                 <div
@@ -89,6 +101,7 @@ Link.propTypes = {
         url: React.PropTypes.string.isRequired,
         description: React.PropTypes.string.isRequired,
         voteCount: React.PropTypes.number.isRequired,
+        votingEnabled: React.PropTypes.bool.isRequired,
     }).isRequired,
     onVoteUp: React.PropTypes.func.isRequired,
     onVoteDown: React.PropTypes.func.isRequired,
