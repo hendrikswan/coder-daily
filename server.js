@@ -6,12 +6,6 @@ const low = require('lowdb');
 const db = low();
 const bodyParser = require('body-parser');
 const uuid = require('uuid');
-const jwt = require('express-jwt');
-
-const jwtCheck = jwt({
-    secret: new Buffer('VNXZqVCFseWn0Mm89teNg0W6ZSJYEMHxhJ5PHt9IEFBVLlwEjUJ94pFleZ7DEyxa', 'base64'),
-    audience: 'vo9u9GqQE0HdjEzjbjr1h7ST2oxjPZYj',
-});
 
 new WebPackDevServer(webpack(config), {
     publicPath: config.output.publicPath,
@@ -24,6 +18,15 @@ new WebPackDevServer(webpack(config), {
 
     return console.log('Listening on localhost:8080');
 });
+
+
+function authCheck(req, res, next) {
+    if (!req.body || !req.body.email) {
+        return res.send(401);
+    }
+
+    return next();
+}
 
 function setupDb() {
     const topic1 = {
@@ -106,8 +109,8 @@ function setupServer() {
         }));
     });
 
-
-    app.post('/topics/:id/links', jwtCheck, (req, res) => {
+    app.post('/topics/:id/links', authCheck, (req, res) => {
+        console.log('posting a new link ', req.body)
         const existingLink = db('links').find({ url: req.body.url });
 
         if (existingLink) {
@@ -125,15 +128,14 @@ function setupServer() {
         res.send(link);
     });
 
-    app.post('/links/:id/vote', jwtCheck, (req, res) => {
+    app.post('/links/:id/vote', authCheck, (req, res) => {
         // setTimeout(() => {
-        console.log(req.user);
         const link = db('links').find({ id: req.params.id });
-        if (link.voters.indexOf(req.user.sub) > -1) {
+        if (link.voters.indexOf(req.body.email) > -1) {
             return res.send(403);
         }
 
-        link.voters.push(req.user.sub);
+        link.voters.push(req.body.email);
         link.voteCount += req.body.increment;
         res.send(link);
         // }, 1500);
