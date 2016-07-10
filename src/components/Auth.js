@@ -1,6 +1,7 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+import TextField from 'material-ui/TextField';
 
 class Auth extends React.Component {
     state = {
@@ -15,6 +16,11 @@ class Auth extends React.Component {
         this.setState({ open: false });
     }
 
+    login = () => {
+        this.props.login({ email: this.emailField.input.value });
+        this.handleClose();
+    }
+
     render() {
         const actions = [
             <FlatButton
@@ -25,12 +31,12 @@ class Auth extends React.Component {
             <FlatButton
                 label="Login"
                 primary={true}
-                disabled={true}
+                onTouchTap={this.login}
             />,
         ];
 
 
-        return (
+        let v = (
             <div>
                 <FlatButton
                     label="Log in"
@@ -46,12 +52,36 @@ class Auth extends React.Component {
                     modal={true}
                     open={this.state.open}
                 >
-                    The login form comes here
+                    <TextField
+                        hintText="Specify your email"
+                        ref={(f) => { this.emailField = f; }}
+                    />
                 </Dialog>
             </div>
         );
+
+        if (this.props.email) {
+            v = (
+                <div
+                    style={{
+                        color: '#fff',
+                        marginTop: 15,
+                        marginRight: 15,
+                    }}
+                >
+                    {this.props.email}
+                </div>
+            );
+        }
+
+        return v;
     }
 
 }
+
+Auth.propTypes = {
+    login: React.PropTypes.func.isRequired,
+    email: React.PropTypes.string.isRequired,
+};
 
 export default Auth;

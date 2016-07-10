@@ -3,6 +3,7 @@ import {
     RECEIVE_TOPICS,
     RECEIVE_LINKS,
     SELECT_TOPIC,
+    LOGIN,
 } from '../actions';
 
 const defaultState = {
@@ -36,6 +37,12 @@ function selectTopic({ state, action: { topic } }) {
     });
 }
 
+function login({ state, action: { email } }) {
+    return Object.assign({}, state, {
+        email,
+    });
+}
+
 
 function mainReducer(state = defaultState, action) {
     switch (action.type) {
@@ -45,6 +52,8 @@ function mainReducer(state = defaultState, action) {
         return receiveLinks({ state, action });
     case SELECT_TOPIC:
         return selectTopic({ state, action });
+    case LOGIN:
+        return login({ state, action });
     default:
         return state;
     }

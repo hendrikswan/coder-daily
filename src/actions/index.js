@@ -76,3 +76,11 @@ export function init() {
         }
     };
 }
+
+export const LOGIN = 'LOGIN';
+export function login({ email }) {
+    return {
+        type: LOGIN,
+        email,
+    };
+}

@@ -3,7 +3,7 @@ import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import List from 'material-ui/List/List';
-import Auth from '../components/Auth';
+import Auth from '../containers/AuthContainer';
 
 class Navigation extends React.Component {
     state = {
