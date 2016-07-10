@@ -3,37 +3,7 @@ import ListItem from 'material-ui/List/ListItem';
 import Card from 'material-ui/Card/Card';
 import UpArrow from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import DownArrow from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
-import { grey400 } from 'material-ui/styles/colors';
-
-function VotingButton({ icon, handler, link }) {
-    const Icon = icon;
-    if (!link.votingEnabled) {
-        return (<Icon
-            style={{
-                width: 50,
-                height: 50,
-            }}
-            color={grey400}
-        />);
-    }
-
-    return (
-        <a
-            href="#"
-            onClick={(e) => {
-                e.preventDefault();
-                handler({ link });
-            }}
-        >
-            <Icon
-                style={{
-                    width: 50,
-                    height: 50,
-                }}
-            />
-        </a>
-    );
-}
+import VotingButton from './VotingButton';
 
 const Link = ({ link, onVoteUp, onVoteDown }) => {
     return (
