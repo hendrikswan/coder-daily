@@ -5,7 +5,7 @@ import UpArrow from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import DownArrow from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import { grey400 } from 'material-ui/styles/colors';
 
-function VotingButton({ icon, handler, link, votingEnabled }) {
+function VotingButton({ icon, handler, link }) {
     const Icon = icon;
     if (!link.votingEnabled) {
         return (<Icon
