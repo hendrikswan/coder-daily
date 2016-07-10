@@ -26,7 +26,6 @@ class Auth extends React.Component {
                 label="Login"
                 primary={true}
                 disabled={true}
-                onTouchTap={this.login}
             />,
         ];
 
