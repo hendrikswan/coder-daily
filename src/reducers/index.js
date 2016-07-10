@@ -4,6 +4,8 @@ import {
     RECEIVE_LINKS,
     SELECT_TOPIC,
     LOGIN,
+    START_ADD,
+    CANCEL_ADD,
 } from '../actions';
 
 const defaultState = {
@@ -15,6 +17,7 @@ const defaultState = {
     },
     initialized: false,
     loadingLinks: true,
+    adding: false,
 };
 
 function receiveTopics({ state, action: { topics } }) {
@@ -43,6 +46,18 @@ function login({ state, action: { email } }) {
     });
 }
 
+function startAdd({ state }) {
+    return Object.assign({}, state, {
+        adding: true,
+    });
+}
+
+function cancelAdd({ state }) {
+    return Object.assign({}, state, {
+        adding: false,
+    });
+}
+
 
 function mainReducer(state = defaultState, action) {
     switch (action.type) {
@@ -54,6 +69,10 @@ function mainReducer(state = defaultState, action) {
         return selectTopic({ state, action });
     case LOGIN:
         return login({ state, action });
+    case START_ADD:
+        return startAdd({ state, action });
+    case CANCEL_ADD:
+        return cancelAdd({ state, action });
     default:
         return state;
     }

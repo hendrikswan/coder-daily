@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Navigation from '../containers/NavigationContainer';
 import LinkList from '../containers/LinkListContainer';
+import Form from '../containers/FormContainer';
 
 
 class App extends React.Component {
@@ -13,6 +14,7 @@ class App extends React.Component {
             <div>
                 <Navigation />
                 <LinkList />
+                <Form />
             </div>
         );
     }

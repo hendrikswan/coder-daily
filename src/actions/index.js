@@ -84,3 +84,43 @@ export function login({ email }) {
         email,
     };
 }
+
+export const START_ADD = 'START_ADD';
+export function startAdd() {
+    return {
+        type: START_ADD,
+    };
+}
+
+export const CANCEL_ADD = 'CANCEL_ADD';
+export function cancelAdd() {
+    return {
+        type: CANCEL_ADD,
+    };
+}
+
+
+export function add({ url, description }) {
+    return (dispatch, getState) => {
+        const selectedTopic = getState().main.selectedTopic;
+        fetch(`http://localhost:3000/topics/${selectedTopic.id}/links`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                url,
+                description,
+                topicId: selectedTopic.id,
+                email: getState().main.email,
+            }),
+        })
+        .then(postResponse => {
+            if (postResponse.status === 200) {
+                dispatch(cancelAdd());
+                dispatch(fetchLinks());
+            }
+        });
+    };
+}
