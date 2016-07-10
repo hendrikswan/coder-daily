@@ -6,6 +6,7 @@ import {
     LOGIN,
     START_ADD,
     CANCEL_ADD,
+    VOTE_LINK,
 } from '../actions';
 
 const defaultState = {
@@ -59,6 +60,21 @@ function cancelAdd({ state }) {
 }
 
 
+function voteLink({ state, action: { link, increment } }) {
+    const linkById = state.links.find(l => l.id === link.id);
+    const linkIndex = state.links.indexOf(linkById);
+
+    return Object.assign({}, state, {
+        links: [
+            ...state.links.slice(0, linkIndex),
+            Object.assign({}, link, {
+                voteCount: link.voteCount + increment,
+            }),
+            ...state.links.slice(linkIndex + 1),
+        ],
+    });
+}
+
 function mainReducer(state = defaultState, action) {
     switch (action.type) {
     case RECEIVE_TOPICS:
@@ -73,6 +89,8 @@ function mainReducer(state = defaultState, action) {
         return startAdd({ state, action });
     case CANCEL_ADD:
         return cancelAdd({ state, action });
+    case VOTE_LINK:
+        return voteLink({ state, action });
     default:
         return state;
     }

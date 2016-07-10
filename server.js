@@ -22,6 +22,7 @@ new WebPackDevServer(webpack(config), {
 
 function authCheck(req, res, next) {
     if (!req.body || !req.body.email) {
+        console.error('auth check failed..');
         return res.send(401);
     }
 
