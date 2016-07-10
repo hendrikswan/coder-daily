@@ -3,7 +3,7 @@ import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import List from 'material-ui/List/List';
-
+import Auth from '../components/Auth';
 
 class Navigation extends React.Component {
     state = {
@@ -34,6 +34,15 @@ class Navigation extends React.Component {
                     title="Coder daily"
                     onTitleTouchTap={this.toggle}
                     onLeftIconButtonTouchTap={this.toggle}
+                    iconElementRight={(
+                        <div
+                            style={{
+                                marginTop: 5,
+                            }}
+                        >
+                            <Auth />
+                        </div>
+                    )}
                 >
                 </AppBar>
 
