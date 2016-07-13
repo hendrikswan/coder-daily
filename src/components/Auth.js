@@ -47,10 +47,11 @@ class Auth extends React.Component {
                 />
 
                 <Dialog
-                    title="Dialog With Actions"
+                    title="Log in"
                     actions={actions}
                     modal={true}
                     open={this.state.open}
+                    contentStyle={{ width: 320 }}
                 >
                     <TextField
                         hintText="Specify your email"
